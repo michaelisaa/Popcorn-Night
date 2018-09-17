@@ -12,7 +12,7 @@
 		0F212C302150231800C61B53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C2E2150231800C61B53 /* Main.storyboard */; };
 		0F212C322150231B00C61B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C312150231B00C61B53 /* Assets.xcassets */; };
 		0F212C352150231B00C61B53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C332150231B00C61B53 /* LaunchScreen.storyboard */; };
-		0F212C402150231B00C61B53 /* Popcorn_NightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C3F2150231B00C61B53 /* Popcorn_NightTests.swift */; };
+		0F212C402150231B00C61B53 /* ApiClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C3F2150231B00C61B53 /* ApiClientTest.swift */; };
 		0F212C4B2150231B00C61B53 /* Popcorn_NightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C4A2150231B00C61B53 /* Popcorn_NightUITests.swift */; };
 		0FA119512150329D0011D60A /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA119502150329D0011D60A /* ApiClient.swift */; };
 		0FA119542150405D0011D60A /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA119532150405D0011D60A /* Movie.swift */; };
@@ -48,7 +48,7 @@
 		0F212C342150231B00C61B53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F212C362150231B00C61B53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F212C3B2150231B00C61B53 /* Popcorn NightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn NightTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F212C3F2150231B00C61B53 /* Popcorn_NightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_NightTests.swift; sourceTree = "<group>"; };
+		0F212C3F2150231B00C61B53 /* ApiClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientTest.swift; sourceTree = "<group>"; };
 		0F212C412150231B00C61B53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F212C462150231B00C61B53 /* Popcorn NightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn NightUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F212C4A2150231B00C61B53 /* Popcorn_NightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_NightUITests.swift; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 		0F212C3E2150231B00C61B53 /* Popcorn NightTests */ = {
 			isa = PBXGroup;
 			children = (
-				0F212C3F2150231B00C61B53 /* Popcorn_NightTests.swift */,
+				0F212C3F2150231B00C61B53 /* ApiClientTest.swift */,
 				0F212C412150231B00C61B53 /* Info.plist */,
 			);
 			path = "Popcorn NightTests";
@@ -220,6 +220,7 @@
 				0F212C372150231B00C61B53 /* Sources */,
 				0F212C382150231B00C61B53 /* Frameworks */,
 				0F212C392150231B00C61B53 /* Resources */,
+				AC44191EEED5CB87B1FEB723 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -357,6 +358,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AC44191EEED5CB87B1FEB723 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Popcorn NightTests/Pods-Popcorn NightTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Popcorn NightTests/Pods-Popcorn NightTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B354578941E60F377708FEB1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -412,7 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F212C402150231B00C61B53 /* Popcorn_NightTests.swift in Sources */,
+				0F212C402150231B00C61B53 /* ApiClientTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +596,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10CF51940606326CEBF18090 /* Pods-Popcorn Night.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Popcorn Night/Info.plist";
@@ -595,6 +615,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 433F9620AB93D606D31F599C /* Pods-Popcorn Night.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Popcorn Night/Info.plist";

@@ -7,30 +7,120 @@
 //
 
 import XCTest
+import OHHTTPStubs
 @testable import Popcorn_Night
 
-class Popcorn_NightTests: XCTestCase {
+class ApiClientTest: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+
+    // MARK: - List Movies
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func test_listRecentMovies_withInvalidJsonObject_callsFailureBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            let invalidResponse = ["key1":"value1"]
+            return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
         }
+        
+        APICLient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
+            
+        }) { (error) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    func test_listRecentMovies_withSuccesfullResponse_callsSuccessBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 200, headers: nil)
+        }
+        
+        APICLient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
+            expectation.fulfill()
+        }) { (error) in
+            
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    func test_listRecentMovies_withErrorStatusCode_callsFailureBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 404, headers: nil)
+        }
+        
+        APICLient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
+            
+        }) { (error) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    // MARK: - Search Movies
+    
+    func test_searchMovies_withInvalidJsonObject_callsFailureBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            let invalidResponse = ["key1":"value1"]
+            return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
+        }
+        
+        APICLient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
+            
+        }) { (error) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    func test_searchMovies_withSuccesfullResponse_callsSuccessBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 200, headers: nil)
+        }
+        
+        APICLient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
+            expectation.fulfill()
+        }) { (error) in
+            
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    func test_searchMovies_withErrorStatusCode_callsFailureBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 404, headers: nil)
+        }
+        
+        APICLient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
+            
+        }) { (error) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    // MARK: - Test Helpers
+    
+    func validJSONRepsonse() -> Dictionary<String, Any> {
+        let movieJSON:[String : Any] = [
+            "overview": "overview",
+            "release_date": "10-12-2018",
+            "id": 1,
+            "title": "title",
+            "popularity": 0,
+            "vote_average" : 0,
+            ]
+        
+        return [
+            "total_results": 5,
+            "total_pages": 2,
+            "page": 1,
+            "results": [movieJSON]
+        ]
     }
     
 }
