@@ -18,11 +18,25 @@ class APICLient {
     static let baseURLString = "https://api.themoviedb.org/3/"
     static let apiKey = "796fee77f2c23a16feb57f8b626c2dbf"
     
-    class public func getRecentMovies(page: Int, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
+    class public func listRecentMovies(page: Int, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
         let parameters: Parameters = [
             "api_key": apiKey,
+            "page": page
         ]
-        Alamofire.request(generateRequestURL(requestURL: "movie/popular"), parameters: parameters).validate().responseData { response in
+        getRequest(requestedURL: generateRequestURL(requestURL: "movie/popular"), parameters: parameters, success: success, failure: failure)
+    }
+    
+    class public func searchMovies(query: String, page: Int, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
+        let parameters: Parameters = [
+            "api_key": apiKey,
+            "query": query,
+            "page": page
+            ]
+        getRequest(requestedURL: generateRequestURL(requestURL: "search/movie"), parameters: parameters, success: success, failure: failure)
+    }
+    
+    class func getRequest(requestedURL: String, parameters: Parameters, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
+        Alamofire.request(requestedURL, parameters: parameters).validate().responseData { response in
             switch response.result {
             case .success:
                 do {
