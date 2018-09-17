@@ -13,8 +13,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        APICLient.getRecentMovies(success: { (data) in
-            print("Hey")
+        APICLient.getRecentMovies(success: { (recentMoviesResponse) in
+            let movies = recentMoviesResponse?.results
+            print("Count: ", movies?.count)
         }) { (err) in
             
         }

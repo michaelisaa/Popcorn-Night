@@ -1,4 +1,4 @@
-//
+ //
 //  ApiClient.swift
 //  Popcorn Night
 //
@@ -8,9 +8,23 @@
 
 import Alamofire
 
+struct RecentMoviesResponse: Decodable {
+    let page: Int
+    let totalResults: Int
+    let totalPages: Int
+    let results: [Movie]
+    
+    enum CodingKeys: String, CodingKey {
+        case totalResults = "total_results"
+        case totalPages = "total_pages"
+        case page = "page"
+        case results = "results"
+    }
+}
+
 class APICLient {
     
-    typealias RecentMoviesSuccess = (_ success:Data?) -> Void
+    typealias RecentMoviesSuccess = (_ success:RecentMoviesResponse?) -> Void
     typealias ApiFailure = (_ error:Error) -> Void
     
     static let baseURLString = "https://api.themoviedb.org/3/"
@@ -25,7 +39,14 @@ class APICLient {
                 failure(error)
                 return
             }
-            success(response.data)
+            do {
+                let recentMoviesResponse = try JSONDecoder().decode(RecentMoviesResponse.self, from: response.data!)
+                success(recentMoviesResponse)
+                return
+            } catch let jsonError {
+                success(nil)
+                return
+            }
             return
         }
     }
