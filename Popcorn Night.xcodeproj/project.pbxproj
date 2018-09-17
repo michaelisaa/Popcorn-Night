@@ -16,6 +16,7 @@
 		0F212C4B2150231B00C61B53 /* Popcorn_NightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C4A2150231B00C61B53 /* Popcorn_NightUITests.swift */; };
 		0FA119512150329D0011D60A /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA119502150329D0011D60A /* ApiClient.swift */; };
 		0FA119542150405D0011D60A /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA119532150405D0011D60A /* Movie.swift */; };
+		0FA1195621504C020011D60A /* MoviesAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1195521504C020011D60A /* MoviesAPIResponse.swift */; };
 		6DCE8BE8C891358FE92533BF /* Pods_Popcorn_NightUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3075FE5F1BD64F1F5E539ED /* Pods_Popcorn_NightUITests.framework */; };
 		D66B479DDDCE74FA599B8FA4 /* Pods_Popcorn_NightTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C5ECB33BF9C3CA8FD0228 /* Pods_Popcorn_NightTests.framework */; };
 		EFB1EE0201FDCF93B8A3561F /* Pods_Popcorn_Night.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B36197B983BCFD40AF2A605 /* Pods_Popcorn_Night.framework */; };
@@ -54,6 +55,7 @@
 		0F212C4C2150231B00C61B53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FA119502150329D0011D60A /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		0FA119532150405D0011D60A /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		0FA1195521504C020011D60A /* MoviesAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPIResponse.swift; sourceTree = "<group>"; };
 		10CF51940606326CEBF18090 /* Pods-Popcorn Night.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn Night.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Popcorn Night/Pods-Popcorn Night.debug.xcconfig"; sourceTree = "<group>"; };
 		433F9620AB93D606D31F599C /* Pods-Popcorn Night.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn Night.release.xcconfig"; path = "Pods/Target Support Files/Pods-Popcorn Night/Pods-Popcorn Night.release.xcconfig"; sourceTree = "<group>"; };
 		43EF7F386E5AEB68EC70C73C /* Pods-Popcorn NightTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn NightTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Popcorn NightTests/Pods-Popcorn NightTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				0FA119532150405D0011D60A /* Movie.swift */,
+				0FA1195521504C020011D60A /* MoviesAPIResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				0F212C2D2150231800C61B53 /* ViewController.swift in Sources */,
 				0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */,
 				0FA119542150405D0011D60A /* Movie.swift in Sources */,
+				0FA1195621504C020011D60A /* MoviesAPIResponse.swift in Sources */,
 				0FA119512150329D0011D60A /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

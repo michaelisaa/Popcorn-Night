@@ -8,46 +8,32 @@
 
 import Alamofire
 
-struct RecentMoviesResponse: Decodable {
-    let page: Int
-    let totalResults: Int
-    let totalPages: Int
-    let results: [Movie]
-    
-    enum CodingKeys: String, CodingKey {
-        case totalResults = "total_results"
-        case totalPages = "total_pages"
-        case page = "page"
-        case results = "results"
-    }
-}
+
 
 class APICLient {
     
-    typealias RecentMoviesSuccess = (_ success:RecentMoviesResponse?) -> Void
-    typealias ApiFailure = (_ error:Error) -> Void
+    typealias MoviesAPISuccess = (_ success:MoviesAPIResponse) -> Void
+    typealias MoviesAPIFailure = (_ error:Error) -> Void
     
     static let baseURLString = "https://api.themoviedb.org/3/"
     static let apiKey = "796fee77f2c23a16feb57f8b626c2dbf"
     
-    class public func getRecentMovies(success: @escaping RecentMoviesSuccess, failure: @escaping ApiFailure) {
+    class public func getRecentMovies(page: Int, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
         let parameters: Parameters = [
             "api_key": apiKey,
         ]
-        Alamofire.request(generateRequestURL(requestURL: "movie/popular"), parameters: parameters).responseData { response in
-            if let error = response.error {
+        Alamofire.request(generateRequestURL(requestURL: "movie/popular"), parameters: parameters).validate().responseData { response in
+            switch response.result {
+            case .success:
+                do {
+                    let recentMoviesResponse = try JSONDecoder().decode(MoviesAPIResponse.self, from: response.data!)
+                    success(recentMoviesResponse)
+                } catch let jsonError {
+                    failure(jsonError)
+                }
+            case .failure(let error):
                 failure(error)
-                return
             }
-            do {
-                let recentMoviesResponse = try JSONDecoder().decode(RecentMoviesResponse.self, from: response.data!)
-                success(recentMoviesResponse)
-                return
-            } catch let jsonError {
-                success(nil)
-                return
-            }
-            return
         }
     }
     
