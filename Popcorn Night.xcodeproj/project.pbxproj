@@ -14,6 +14,7 @@
 		0F212C352150231B00C61B53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C332150231B00C61B53 /* LaunchScreen.storyboard */; };
 		0F212C402150231B00C61B53 /* Popcorn_NightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C3F2150231B00C61B53 /* Popcorn_NightTests.swift */; };
 		0F212C4B2150231B00C61B53 /* Popcorn_NightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C4A2150231B00C61B53 /* Popcorn_NightUITests.swift */; };
+		0FA119512150329D0011D60A /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA119502150329D0011D60A /* ApiClient.swift */; };
 		6DCE8BE8C891358FE92533BF /* Pods_Popcorn_NightUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3075FE5F1BD64F1F5E539ED /* Pods_Popcorn_NightUITests.framework */; };
 		D66B479DDDCE74FA599B8FA4 /* Pods_Popcorn_NightTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C5ECB33BF9C3CA8FD0228 /* Pods_Popcorn_NightTests.framework */; };
 		EFB1EE0201FDCF93B8A3561F /* Pods_Popcorn_Night.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B36197B983BCFD40AF2A605 /* Pods_Popcorn_Night.framework */; };
@@ -50,6 +51,7 @@
 		0F212C462150231B00C61B53 /* Popcorn NightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn NightUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F212C4A2150231B00C61B53 /* Popcorn_NightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_NightUITests.swift; sourceTree = "<group>"; };
 		0F212C4C2150231B00C61B53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FA119502150329D0011D60A /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		10CF51940606326CEBF18090 /* Pods-Popcorn Night.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn Night.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Popcorn Night/Pods-Popcorn Night.debug.xcconfig"; sourceTree = "<group>"; };
 		433F9620AB93D606D31F599C /* Pods-Popcorn Night.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn Night.release.xcconfig"; path = "Pods/Target Support Files/Pods-Popcorn Night/Pods-Popcorn Night.release.xcconfig"; sourceTree = "<group>"; };
 		43EF7F386E5AEB68EC70C73C /* Pods-Popcorn NightTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Popcorn NightTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Popcorn NightTests/Pods-Popcorn NightTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		0F212C292150231800C61B53 /* Popcorn Night */ = {
 			isa = PBXGroup;
 			children = (
+				0FA1194F2150328D0011D60A /* Networking */,
 				0F212C2A2150231800C61B53 /* AppDelegate.swift */,
 				0F212C2C2150231800C61B53 /* ViewController.swift */,
 				0F212C2E2150231800C61B53 /* Main.storyboard */,
@@ -152,6 +155,14 @@
 			path = "Popcorn NightUITests";
 			sourceTree = "<group>";
 		};
+		0FA1194F2150328D0011D60A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0FA119502150329D0011D60A /* ApiClient.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		3AEAC44CAB989373766A8617 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +187,7 @@
 				0F212C232150231700C61B53 /* Sources */,
 				0F212C242150231700C61B53 /* Frameworks */,
 				0F212C252150231700C61B53 /* Resources */,
+				B354578941E60F377708FEB1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -300,15 +312,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Popcorn NightTests-checkManifestLockResult.txt",
 			);
@@ -322,15 +330,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Popcorn NightUITests-checkManifestLockResult.txt",
 			);
@@ -339,20 +343,34 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B6621079A9A726F6495DBFC7 /* [CP] Check Pods Manifest.lock */ = {
+		B354578941E60F377708FEB1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Popcorn Night/Pods-Popcorn Night-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Popcorn Night/Pods-Popcorn Night-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6621079A9A726F6495DBFC7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Popcorn Night-checkManifestLockResult.txt",
 			);
@@ -370,6 +388,7 @@
 			files = (
 				0F212C2D2150231800C61B53 /* ViewController.swift in Sources */,
 				0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */,
+				0FA119512150329D0011D60A /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

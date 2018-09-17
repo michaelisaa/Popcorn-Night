@@ -12,6 +12,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        APICLient.getRecentMovies(success: { (data) in
+            print("Hey")
+        }) { (err) in
+            
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 
