@@ -1,6 +1,0 @@
-framework module Pods_Popcorn_NightUITests {
-  umbrella header "Pods-Popcorn NightUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
