@@ -25,7 +25,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(MovieListCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.configureForAutoLayout()
         view.addSubview(tableView)
         tableView.autoPinEdgesToSuperviewEdges()
@@ -58,8 +58,9 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel?.text = movies[indexPath.row].title
-        cell.detailTextLabel?.text = movies[indexPath.row].title
+        
+        guard let movieListCell = cell as? MovieListCell else {return cell}
+        movieListCell.configure(movie: movies[indexPath.row])
         return cell
     }
     
