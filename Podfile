@@ -13,6 +13,7 @@ target 'Popcorn Night' do
     inherit! :search_paths
     pod 'OHHTTPStubs', '~> 6.1.0'
     pod 'OHHTTPStubs/Swift', '~> 6.1.0'
+    pod 'iOSSnapshotTestCase', '~> 4.0.0'
   end
 
   target 'Popcorn NightUITests' do

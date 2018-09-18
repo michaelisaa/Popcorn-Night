@@ -56,11 +56,16 @@ class MovieListCell: UITableViewCell {
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
         let placeholderImage = UIImage(imageLiteralResourceName: "moviePlaceholderIcon")
-        if let posterPath = movie.posterPath {
-            let urlString = "https://image.tmdb.org/t/p/w185" + posterPath
-            posterImageView.af_setImage(withURL: URL(string: urlString)!, placeholderImage: placeholderImage)
+        if let url = urlForMoviePoster(movie: movie) {
+            posterImageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
         } else {
             posterImageView.image = placeholderImage
         }
+    }
+    
+    func urlForMoviePoster(movie: Movie) -> URL? {
+        guard let posterPath = movie.posterPath else { return nil }
+        let urlString = "https://image.tmdb.org/t/p/w185" + posterPath
+        return URL(string: urlString)
     }
 }
