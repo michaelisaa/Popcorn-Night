@@ -7,7 +7,7 @@ target 'Popcorn Night' do
 
   pod 'Alamofire', '~> 4.7'
   pod 'AlamofireImage', '~> 3.4'
-  pod 'PureLayout', '~> 3.1.2'
+  pod 'PureLayout', '~> 3.1.2', :inhibit_warnings => true
 
   target 'Popcorn NightTests' do
     inherit! :search_paths
