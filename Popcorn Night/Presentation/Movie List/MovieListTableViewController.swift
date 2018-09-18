@@ -22,15 +22,17 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     var searchMovies = [Movie]()
     var searchPageNumber = 1
     var searchCanPage = false
+    let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Movies"
-        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
+        configureNavbar()
         configureTableView()
         configureSearchController()
-        navigationItem.hidesSearchBarWhenScrolling = true
+        configureEmptyStateView()
         fetchPopularMovies()
     }
     
@@ -41,6 +43,20 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
+    // MARK: - Configuration
+    
+    func configureEmptyStateView() {
+        view.addSubview(emptyStateView)
+        emptyStateView.autoPinEdgesToSuperviewEdges()
+        view.bringSubview(toFront: emptyStateView)
+    }
+    
+    func configureNavbar() {
+        navigationItem.title = "Movies"
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.hidesSearchBarWhenScrolling = true
     }
     
@@ -71,22 +87,28 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         APICLient.listRecentMovies(page: pageNumber, success: { (movieAPIResponse) in
             self.updateMovieList(movieAPIresponse: movieAPIResponse)
         }) { (error) in
-            
+            self.emptyStateView.isHidden = false
+            self.emptyStateView.configure(state: .Error)
         }
     }
     
     func fetchMovieSearchResults() {
-        if let searchQuery = searchController.searchBar.text {
+        if let searchQuery = searchController.searchBar.text, searchQuery.count > 0 {
             if let currentSearchQuery = currentSearchQuery, currentSearchQuery != searchQuery {
                 searchPageNumber = 1
                 searchMovies.removeAll()
+                self.emptyStateView.isHidden = false
+                self.emptyStateView.configure(state: .Loading)
             }
             currentSearchQuery = searchQuery
             APICLient.searchMovies(query: searchQuery, page: searchPageNumber, success: { (movieAPIResponse) in
                 self.updateSearchList(movieAPIresponse: movieAPIResponse)
             }) { (_) in
-                
+                self.emptyStateView.isHidden = false
+                self.emptyStateView.configure(state: .Error)
             }
+        } else {
+            configureEmptyViewState()
         }
     }
     
@@ -111,7 +133,26 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            let rowCount = moviesToDisplay().count
+            if rowCount == 0 {
+                configureEmptyViewState()
+            } else {
+                self.emptyStateView.isHidden = true
+            }
+            return rowCount
+        }
         return section == 0 ? moviesToDisplay().count : 1
+    }
+    
+    func configureEmptyViewState() {
+        if isSearchActive() {
+            self.emptyStateView.isHidden = false
+            self.emptyStateView.configure(state: .EmptySearch)
+        } else if searchController.isActive {
+            self.emptyStateView.isHidden = false
+            self.emptyStateView.configure(state: .InitialSearch)
+        }
     }
     
     func moviesToDisplay() -> [Movie] {
@@ -154,7 +195,6 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         return loadingCell
     }
     
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && hasNextPage() {
             if isSearchActive() {
@@ -175,7 +215,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         currentSearchQuery = nil
+        emptyStateView.isHidden = true
         tableView.reloadData()
     }
-    
 }
