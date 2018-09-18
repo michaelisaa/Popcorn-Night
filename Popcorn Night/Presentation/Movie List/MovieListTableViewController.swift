@@ -9,8 +9,7 @@
 import UIKit
 import PureLayout
 
-class MovieListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
-    
+class MovieListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate {
     
     let tableView = UITableView()
     let cellIdentifier = "movieCellIdentifier"
@@ -44,10 +43,11 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func configureSearchController() {
+        searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Movies"
-        searchController.dimsBackgroundDuringPresentation = true
+        searchController.dimsBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -55,6 +55,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .onDrag
         tableView.register(MovieListCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.register(LoadingCell.self, forCellReuseIdentifier: loadingCellIdentifier)
         tableView.configureForAutoLayout()
@@ -86,7 +87,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func moviesToDisplay() -> [Movie] {
-        return searchController.isActive ? searchMovies : movies
+        return searchController.searchBar.text!.count > 0 ? searchMovies : movies
     }
     
     // MARK: - UITableViewDelegate
@@ -134,6 +135,12 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
                 
             }
         }
+    }
+    
+    // MARK: - SearchBar Delegate
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        tableView.reloadData()
     }
     
 }
