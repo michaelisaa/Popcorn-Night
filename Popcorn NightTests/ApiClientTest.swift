@@ -12,8 +12,29 @@ import OHHTTPStubs
 
 class ApiClientTest: XCTestCase {
     
-
     // MARK: - List Movies
+    
+    func test_listRecentMovies_callsCorrectEndpoint() {
+        let page = 1
+        
+        let expectation = self.expectation(description: "check paramaters and path used for listing movies")
+        stub(condition: { (urlRequest) -> Bool in
+            guard let url = urlRequest.url, let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems else { return false}
+            let pageParameter = URLQueryItem(name: "page", value: String(page))
+            let apiKeyParameter = URLQueryItem(name: "api_key", value: APICLient.apiKey)
+            XCTAssertTrue(queryItems.contains(pageParameter))
+            XCTAssertTrue(queryItems.contains(apiKeyParameter))
+            XCTAssertEqual(url.path, "/3/movie/popular")
+            return true
+        }) { (urlRequest) -> OHHTTPStubsResponse in
+            return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 200, headers: nil)
+        }
+        
+        APICLient.listRecentMovies(page: page, success: { (movieAPIResponse) in
+            expectation.fulfill()
+        }) { (error) in }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
     
     func test_listRecentMovies_withInvalidJsonObject_callsFailureBlock() {
         let expectation = self.expectation(description: "calls failure block when returned json is invalid")
@@ -59,6 +80,32 @@ class ApiClientTest: XCTestCase {
     }
     
     // MARK: - Search Movies
+    
+    func test_searchMovies_callsCorrectEndpoint() {
+        let query = "search"
+        let page = 1
+        
+        let expectation = self.expectation(description: "check paramaters and path used for search query")
+        stub(condition: { (urlRequest) -> Bool in
+            guard let url = urlRequest.url, let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems else { return false}
+            let pageParameter = URLQueryItem(name: "page", value: String(page))
+            let queryParameter = URLQueryItem(name: "query", value: query)
+            let apiKeyParameter = URLQueryItem(name: "api_key", value: APICLient.apiKey)
+            XCTAssertTrue(queryItems.contains(pageParameter))
+            XCTAssertTrue(queryItems.contains(queryParameter))
+            XCTAssertTrue(queryItems.contains(apiKeyParameter))
+            XCTAssertEqual(url.path, "/3/search/movie")
+            return true
+        }) { (urlRequest) -> OHHTTPStubsResponse in
+            let invalidResponse = ["key1":"value1"]
+            return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
+        }
+        
+        APICLient.searchMovies(query: query, page: page, success: { (movieAPIResponse) in}) { (error) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
     
     func test_searchMovies_withInvalidJsonObject_callsFailureBlock() {
         let expectation = self.expectation(description: "calls failure block when returned json is invalid")
