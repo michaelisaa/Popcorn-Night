@@ -12,6 +12,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        APICLient.searchMovies(query: "Shrek", page: 1, success: { (moviesAPIResponse) in
+            let movies = moviesAPIResponse.results
+            print("Count: ", movies.count)
+        }, failure: {(err) in
+            
+        })
+//        APICLient.listRecentMovies(page: 1, success: { (recentMoviesResponse) in
+//            let movies = recentMoviesResponse.results
+//            print("Count: ", movies.count)
+//        }) { (err) in
+//
+//        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 
