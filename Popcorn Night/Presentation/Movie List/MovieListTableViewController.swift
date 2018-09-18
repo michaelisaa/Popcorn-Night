@@ -17,6 +17,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     var movies = [Movie]()
     var searchMovies = [Movie]()
     var searchPageNumber = 1
+    var currentSearchQuery: String?
     var canPage = false
     var pageNumber = 1
     let searchController = UISearchController(searchResultsController: nil)
@@ -29,7 +30,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         configureTableView()
         configureSearchController()
         navigationItem.hidesSearchBarWhenScrolling = true
-        fetchMovies()
+        fetchPopularMovies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,15 +66,41 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - Datasource
     
-    func fetchMovies() {
-        APICLient.listRecentMovies(page: pageNumber, success: { (movieAPIresponse) in
-            self.pageNumber += 1
-            self.canPage =  self.pageNumber <= movieAPIresponse.totalPages
-            self.movies += movieAPIresponse.results
-            self.tableView.reloadData()
+    func fetchPopularMovies() {
+        APICLient.listRecentMovies(page: pageNumber, success: { (movieAPIResponse) in
+            self.updateMovieList(movieAPIresponse: movieAPIResponse)
         }) { (error) in
             
         }
+    }
+    
+    func fetchMovieSearchResults() {
+        if let searchQuery = searchController.searchBar.text {
+            if let currentSearchQuery = currentSearchQuery, currentSearchQuery != searchQuery {
+                searchPageNumber = 1
+                searchMovies.removeAll()
+            }
+            currentSearchQuery = searchQuery
+            APICLient.searchMovies(query: searchQuery, page: searchPageNumber, success: { (movieAPIResponse) in
+                self.updateSearchList(movieAPIresponse: movieAPIResponse)
+            }) { (_) in
+                
+            }
+        }
+    }
+    
+    func updateMovieList(movieAPIresponse: MoviesAPIResponse) {
+        pageNumber += 1
+        canPage = pageNumber <= movieAPIresponse.totalPages
+        movies += movieAPIresponse.results
+        tableView.reloadData()
+    }
+    
+    func updateSearchList(movieAPIresponse: MoviesAPIResponse) {
+        searchPageNumber += 1
+        searchMovies += movieAPIresponse.results
+        canPage = searchPageNumber <= movieAPIresponse.totalPages
+        tableView.reloadData()
     }
     
     // MARK: - UITableViewDatasource
@@ -87,7 +114,14 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func moviesToDisplay() -> [Movie] {
-        return searchController.searchBar.text!.count > 0 ? searchMovies : movies
+        return isSearchActive() ? searchMovies : movies
+    }
+    
+    func isSearchActive() -> Bool {
+        if let currentSearchQuery = currentSearchQuery {
+            return currentSearchQuery.count > 0
+        }
+        return false
     }
     
     // MARK: - UITableViewDelegate
@@ -118,28 +152,24 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && canPage {
-            fetchMovies()
+            if isSearchActive() {
+                fetchMovieSearchResults()
+            } else {
+                fetchPopularMovies()
+            }
         }
     }
     
     // MARK: - UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text {
-            APICLient.searchMovies(query: searchText, page: 1, success: { (moviesAPIResponse) in
-                self.searchPageNumber += 1
-                self.canPage = self.pageNumber <= moviesAPIResponse.totalPages
-                self.searchMovies = moviesAPIResponse.results
-                self.tableView.reloadData()
-            }) { (_) in
-                
-            }
-        }
+        fetchMovieSearchResults()
     }
     
     // MARK: - SearchBar Delegate
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        currentSearchQuery = nil
         tableView.reloadData()
     }
     
