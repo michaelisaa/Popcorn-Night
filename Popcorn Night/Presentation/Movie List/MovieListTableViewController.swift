@@ -21,7 +21,6 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         view.backgroundColor = .white
         configureTableView()
-        pageNumber = 1
         fetchMovies()
     }
     
