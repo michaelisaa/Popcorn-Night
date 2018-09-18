@@ -53,6 +53,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     func configureEmptyStateView() {
         view.addSubview(emptyStateView)
         emptyStateView.autoPinEdgesToSuperviewEdges()
+        emptyStateView.isHidden = true
         view.bringSubview(toFront: emptyStateView)
     }
     
