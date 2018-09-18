@@ -59,6 +59,7 @@ class MovieListEmptyStateView: UIView {
     func configureActivityIndicator() {
         addSubview(activityIndicator)
         activityIndicator.autoCenterInSuperview()
+        activityIndicator.color = .blue
         activityIndicator.autoSetDimensions(to: CGSize(width: activityIndicatorHeight, height: activityIndicatorHeight))
         activityIndicator.isHidden = true
     }

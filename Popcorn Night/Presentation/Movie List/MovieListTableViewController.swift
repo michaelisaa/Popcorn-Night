@@ -23,6 +23,8 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     var searchPageNumber = 1
     var searchCanPage = false
     let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
+    var timer: Timer?
+    let timerLimit = 0.3
     
     // MARK: - Lifecycle
     
@@ -92,7 +94,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    func fetchMovieSearchResults() {
+    @objc func fetchMovieSearchResults() {
         if let searchQuery = searchController.searchBar.text, searchQuery.count > 0 {
             if let currentSearchQuery = currentSearchQuery, currentSearchQuery != searchQuery {
                 searchPageNumber = 1
@@ -208,7 +210,12 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController) {
-        fetchMovieSearchResults()
+        timer?.invalidate()
+        if let searchQuery = searchController.searchBar.text, searchQuery.count > 0 {
+             timer = Timer.scheduledTimer(timeInterval: timerLimit, target: self, selector: #selector(fetchMovieSearchResults), userInfo: nil, repeats: false)
+            emptyStateView.isHidden = false
+            emptyStateView.configure(state: .Loading)
+        }
     }
     
     // MARK: - SearchBar Delegate
