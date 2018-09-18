@@ -6,6 +6,7 @@ target 'Popcorn Night' do
   use_frameworks!
 
   pod 'Alamofire', '~> 4.7'
+  pod 'PureLayout', '~> 3.1.2'
 
   target 'Popcorn NightTests' do
     inherit! :search_paths
