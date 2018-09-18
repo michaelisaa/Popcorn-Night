@@ -73,11 +73,14 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         
         guard let movieListCell = cell as? MovieListCell else {return cell}
         movieListCell.configure(movie: movies[indexPath.row])
-        return cell
+        return movieListCell
     }
     
     func configureLoadingCell(_ indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: loadingCellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellIdentifier, for: indexPath)
+        guard let loadingCell = cell as? LoadingCell else {return cell}
+        loadingCell.startAnimating()
+        return loadingCell
     }
     
     

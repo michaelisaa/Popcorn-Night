@@ -30,6 +30,9 @@ class LoadingCell: UITableViewCell {
         activityIndicator.autoPinEdge(toSuperviewEdge: .top, withInset: 10)
         activityIndicator.autoPinEdge(toSuperviewEdge: .bottom, withInset: 10)
         activityIndicator.color = .blue
+    }
+    
+    public func startAnimating() {
         activityIndicator.startAnimating()
     }
 }
