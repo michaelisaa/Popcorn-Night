@@ -15,12 +15,13 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     let cellIdentifier = "movieCellIdentifier"
     let loadingCellIdentifier = "loadingCellIdentifier"
     var movies = [Movie]()
-    var searchMovies = [Movie]()
-    var searchPageNumber = 1
     var currentSearchQuery: String?
     var canPage = false
     var pageNumber = 1
     let searchController = UISearchController(searchResultsController: nil)
+    var searchMovies = [Movie]()
+    var searchPageNumber = 1
+    var searchCanPage = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,14 +100,14 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     func updateSearchList(movieAPIresponse: MoviesAPIResponse) {
         searchPageNumber += 1
         searchMovies += movieAPIresponse.results
-        canPage = searchPageNumber <= movieAPIresponse.totalPages
+        searchCanPage = searchPageNumber <= movieAPIresponse.totalPages
         tableView.reloadData()
     }
     
     // MARK: - UITableViewDatasource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return canPage ? 2 : 1
+        return hasNextPage() ? 2 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -115,6 +116,10 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func moviesToDisplay() -> [Movie] {
         return isSearchActive() ? searchMovies : movies
+    }
+    
+    func hasNextPage() -> Bool {
+        return isSearchActive() ? searchCanPage : canPage
     }
     
     func isSearchActive() -> Bool {
@@ -151,7 +156,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 && canPage {
+        if indexPath.section == 1 && hasNextPage() {
             if isSearchActive() {
                 fetchMovieSearchResults()
             } else {
