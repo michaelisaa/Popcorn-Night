@@ -11,6 +11,7 @@
 		0F1F3E9321512DF200384B90 /* MovieListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E9221512DF200384B90 /* MovieListCell.swift */; };
 		0F1F3E9521513EB300384B90 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E9421513EB300384B90 /* LoadingCell.swift */; };
 		0F1F3E97215157B100384B90 /* MovieListCellSnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E96215157B100384B90 /* MovieListCellSnapshotTest.swift */; };
+		0F1F3E9921515C0D00384B90 /* LoadingCellSnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E9821515C0D00384B90 /* LoadingCellSnapshotTest.swift */; };
 		0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C2A2150231800C61B53 /* AppDelegate.swift */; };
 		0F212C2D2150231800C61B53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C2C2150231800C61B53 /* ViewController.swift */; };
 		0F212C302150231800C61B53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C2E2150231800C61B53 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		0F1F3E9221512DF200384B90 /* MovieListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCell.swift; sourceTree = "<group>"; };
 		0F1F3E9421513EB300384B90 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		0F1F3E96215157B100384B90 /* MovieListCellSnapshotTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCellSnapshotTest.swift; sourceTree = "<group>"; };
+		0F1F3E9821515C0D00384B90 /* LoadingCellSnapshotTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellSnapshotTest.swift; sourceTree = "<group>"; };
 		0F212C272150231700C61B53 /* Popcorn Night.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn Night.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F212C2A2150231800C61B53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F212C2C2150231800C61B53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,15 @@
 			path = "Movie List";
 			sourceTree = "<group>";
 		};
+		0F1F3E9A21515CC600384B90 /* Snapshot Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0F1F3E96215157B100384B90 /* MovieListCellSnapshotTest.swift */,
+				0F1F3E9821515C0D00384B90 /* LoadingCellSnapshotTest.swift */,
+			);
+			path = "Snapshot Tests";
+			sourceTree = "<group>";
+		};
 		0F212C1E2150231700C61B53 = {
 			isa = PBXGroup;
 			children = (
@@ -172,9 +183,9 @@
 		0F212C3E2150231B00C61B53 /* Popcorn NightTests */ = {
 			isa = PBXGroup;
 			children = (
+				0F1F3E9A21515CC600384B90 /* Snapshot Tests */,
 				0F212C3F2150231B00C61B53 /* ApiClientTest.swift */,
 				0F212C412150231B00C61B53 /* Info.plist */,
-				0F1F3E96215157B100384B90 /* MovieListCellSnapshotTest.swift */,
 			);
 			path = "Popcorn NightTests";
 			sourceTree = "<group>";
@@ -469,6 +480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F212C402150231B00C61B53 /* ApiClientTest.swift in Sources */,
+				0F1F3E9921515C0D00384B90 /* LoadingCellSnapshotTest.swift in Sources */,
 				0F1F3E97215157B100384B90 /* MovieListCellSnapshotTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
