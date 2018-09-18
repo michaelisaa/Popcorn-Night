@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PureLayout
 
 class MovieListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let tableView = UITableView()
@@ -16,17 +17,18 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(tableView)
         view.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        configureTableView()
         fetchMovies()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.frame = view.frame
+    func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.configureForAutoLayout()
+        view.addSubview(tableView)
+        tableView.autoPinEdgesToSuperviewEdges()
     }
     
     // MARK: - Datasource
