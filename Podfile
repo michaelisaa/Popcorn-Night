@@ -6,6 +6,7 @@ target 'Popcorn Night' do
   use_frameworks!
 
   pod 'Alamofire', '~> 4.7'
+  pod 'AlamofireImage', '~> 3.4'
   pod 'PureLayout', '~> 3.1.2'
 
   target 'Popcorn NightTests' do
