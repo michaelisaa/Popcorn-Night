@@ -8,12 +8,15 @@
 
 import UIKit
 import PureLayout
+import AlamofireImage
 
 class MovieListCell: UITableViewCell {
     let titleLabel = UILabel(forAutoLayout: ())
     let overviewLabel = UILabel(forAutoLayout: ())
+    let posterImageView = UIImageView()
     let labelTopPadding:CGFloat = 10
     let contentPadding:CGFloat = 10
+    let posterImageViewHeight:CGFloat = 80
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,11 +29,19 @@ class MovieListCell: UITableViewCell {
     }
     
     func configureView() {
+        contentView.addSubview(posterImageView)
+        posterImageView.translatesAutoresizingMaskIntoConstraints = false
+        posterImageView.autoPinEdge(toSuperviewEdge: .left, withInset: contentPadding)
+        posterImageView.autoPinEdge(toSuperviewEdge: .top, withInset: contentPadding)
+        posterImageView.autoSetDimensions(to: CGSize(width: posterImageViewHeight, height: posterImageViewHeight))
+        posterImageView.autoPinEdge(toSuperviewEdge: .bottom, withInset: contentPadding)
+        posterImageView.contentMode = .scaleAspectFit
+        
         contentView.addSubview(titleLabel)
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        titleLabel.autoPinEdge(toSuperviewEdge: .left, withInset: contentPadding)
+        titleLabel.autoPinEdge(.left, to: .right, of: posterImageView, withOffset: contentPadding)
         titleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: contentPadding)
-        titleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: contentPadding)
+        titleLabel.autoPinEdge(.top, to: .top, of: posterImageView)
         
         contentView.addSubview(overviewLabel)
         overviewLabel.numberOfLines = 3
@@ -44,5 +55,9 @@ class MovieListCell: UITableViewCell {
     public func configure(movie: Movie) {
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
+        if let posterPath = movie.posterPath {
+            let urlString = "https://image.tmdb.org/t/p/w185" + posterPath
+            posterImageView.af_setImage(withURL:URL(string: urlString)!)
+        }
     }
 }
