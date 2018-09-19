@@ -13,23 +13,33 @@ struct Movie: Decodable {
     let backdropPath: String?
     let overview: String
     let releaseDate: String
-    let id: Int
+    let movieId: Int
     let title: String
     let popularity: Float
     let voteAverage: Float
     let originalLanguage: String?
     let voteCount: Int
+    let budget: Int?
+    let homepage: String?
+    let revenue: Int?
+    let runtime: Int?
+    let tagline: String?
     
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
         case overview = "overview"
         case releaseDate = "release_date"
-        case id = "id"
+        case movieId = "id"
         case title = "title"
         case popularity = "popularity"
         case voteAverage = "vote_average"
         case backdropPath = "backdrop_path"
         case originalLanguage = "original_language"
         case voteCount = "vote_count"
+        case budget = "budget"
+        case homepage = "homepage"
+        case revenue = "revenue"
+        case runtime = "runtime"
+        case tagline = "tagline"
     }
 }

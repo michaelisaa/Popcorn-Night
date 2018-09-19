@@ -10,18 +10,20 @@ import UIKit
 import PureLayout
 
 class MovieInfoViewController: UIViewController {
-    let movie: Movie?
     let scrollView = UIScrollView(forAutoLayout: ())
     let overviewLabel = UILabel(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
+    let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
+    let movieId: Int?
+    var movie: Movie?
     
-    init(movie: Movie) {
-        self.movie = movie
+    init(movieId: Int) {
+        self.movieId = movieId
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        movie = nil
+        movieId = nil
         super.init(coder: aDecoder)
     }
     
@@ -29,12 +31,41 @@ class MovieInfoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureScrollView()
+        configureEmptyStateView()
+        fetchMovieDetails()
+    }
+    
+    func fetchMovieDetails() {
+        if let movieId = movieId {
+            emptyStateView.configure(state: .Loading)
+            emptyStateView.isHidden = false
+            APICLient.getMovieDetails(movieId: movieId, success: { (movieInfo) in
+                self.movie = movieInfo
+                self.emptyStateView.isHidden = true
+                self.configureMovieInfoView()
+            }) { (_) in
+                
+            }
+        } else {
+            emptyStateView.configure(state: .Error)
+            emptyStateView.isHidden = false
+        }
+    }
+    
+    // MARK: - Configure Views
+    
+    func configureMovieInfoView() {
         configureTitleLabel()
         configurePosterImageView()
         configureOverviewLabel()
     }
     
-    // MARK: - Configure Views
+    func configureEmptyStateView() {
+        view.addSubview(emptyStateView)
+        emptyStateView.autoPinEdgesToSuperviewEdges()
+        emptyStateView.isHidden = true
+        view.bringSubview(toFront: emptyStateView)
+    }
     
     func configureScrollView() {
         view.addSubview(scrollView)
@@ -75,7 +106,12 @@ class MovieInfoViewController: UIViewController {
         view.sendSubview(toBack: posterImageView)
         let placeholderImage = UIImage(imageLiteralResourceName: "moviePlaceholderIcon")
         if let url = urlForMoviePoster() {
-            posterImageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
+            posterImageView.af_setImage(
+                withURL: url,
+                placeholderImage: nil,
+                filter: nil,
+                imageTransition: .crossDissolve(0.2)
+            )
         } else {
             posterImageView.image = placeholderImage
         }

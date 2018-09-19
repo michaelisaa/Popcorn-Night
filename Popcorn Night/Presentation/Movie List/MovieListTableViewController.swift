@@ -211,7 +211,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let selectedMovie = moviesToDisplay()[indexPath.row]
-            let movieInfoVC = MovieInfoViewController(movie: selectedMovie)
+            let movieInfoVC = MovieInfoViewController(movieId: selectedMovie.movieId)
             navigationController?.pushViewController(movieInfoVC, animated: true)
         }
     }
