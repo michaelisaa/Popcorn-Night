@@ -15,9 +15,9 @@ class MovieInfoViewController: UIViewController {
     let overviewLabel = UILabel(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
     let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
-    let releaseAndRuntimeLabel = UILabel(forAutoLayout: ())
     let movieId: Int?
     var movie: Movie?
+    let contentInset:CGFloat = 10
     
     init(movieId: Int) {
         self.movieId = movieId
@@ -97,9 +97,9 @@ class MovieInfoViewController: UIViewController {
         overviewLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         overviewLabel.numberOfLines = 0
         overviewLabel.textColor = .black
-        overviewLabel.autoPinEdge(toSuperviewSafeArea: .left)
-        overviewLabel.autoPinEdge(toSuperviewSafeArea: .right)
-        overviewLabel.autoPinEdge(.top, to: .bottom, of: posterImageView, withOffset: 10)
+        overviewLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: contentInset)
+        overviewLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: contentInset)
+        overviewLabel.autoPinEdge(.top, to: .bottom, of: posterImageView, withOffset: contentInset)
         overviewLabel.text = movie?.overview
     }
     
@@ -126,6 +126,8 @@ class MovieInfoViewController: UIViewController {
     }
     
     func configureReleaseAndRuntimeLabel() {
+        let ratingsLabel = UILabel(forAutoLayout: ())
+        let releaseAndRuntimeLabel = UILabel(forAutoLayout: ())
         let backgroundView = UIView(forAutoLayout: ())
         backgroundView.backgroundColor = .black
         backgroundView.alpha = 0.75
@@ -136,13 +138,21 @@ class MovieInfoViewController: UIViewController {
         backgroundView.autoSetDimension(.height, toSize: 40)
         var labelText = String(movie!.releaseDate.split(separator: "-").first!)
         if  let runtime = movie!.runtime {
-            labelText = "  \(labelText)  ∙  \(runtime) min"
+            labelText = "\(labelText)  ∙  \(runtime) min"
         }
         releaseAndRuntimeLabel.text = labelText
         releaseAndRuntimeLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         releaseAndRuntimeLabel.textColor = .white
         backgroundView.addSubview(releaseAndRuntimeLabel)
-        releaseAndRuntimeLabel.autoPinEdgesToSuperviewSafeArea()
+        backgroundView.addSubview(ratingsLabel)
+        releaseAndRuntimeLabel.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsetsMake(0, contentInset, 0, 0), excludingEdge: .right)
+        ratingsLabel.autoPinEdgesToSuperviewSafeArea(with: UIEdgeInsetsMake(0, 0, 0, contentInset), excludingEdge: .left)
+        ratingsLabel.autoPinEdge(.left, to: .right, of: releaseAndRuntimeLabel)
+        ratingsLabel.textAlignment = .right
+        ratingsLabel.textColor = .white
+        if let voteAverage = movie?.voteAverage {
+            ratingsLabel.text = "\(voteAverage) / 10 ⭐️"
+        }
     }
     
     func urlForMoviePoster() -> URL? {
