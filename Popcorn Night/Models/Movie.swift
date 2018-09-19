@@ -8,6 +8,16 @@
 
 import Foundation
 
+struct Genre: Decodable {
+    let genreId: Int
+    let name: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case genreId = "id"
+        case name = "name"
+    }
+}
+
 struct Movie: Decodable {
     let posterPath: String?
     let backdropPath: String?
@@ -24,6 +34,8 @@ struct Movie: Decodable {
     let revenue: Int?
     let runtime: Int?
     let tagline: String?
+    let genres: [Genre]?
+    let genreIds: [Int]?
     
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
@@ -41,5 +53,7 @@ struct Movie: Decodable {
         case revenue = "revenue"
         case runtime = "runtime"
         case tagline = "tagline"
+        case genres = "genres"
+        case genreIds = "genre_ids"
     }
 }

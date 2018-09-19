@@ -13,6 +13,7 @@ class MovieInfoViewController: UIViewController {
     let scrollView = UIScrollView(forAutoLayout: ())
     let scrollContentView = UIView(forAutoLayout: ())
     let overviewLabel = UILabel(forAutoLayout: ())
+    let genreLabel = UILabel(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
     let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
     let movieId: Int?
@@ -46,7 +47,8 @@ class MovieInfoViewController: UIViewController {
                 self.emptyStateView.isHidden = true
                 self.configureMovieInfoView()
             }) { (_) in
-                
+                self.emptyStateView.configure(state: .Error)
+                self.emptyStateView.isHidden = false
             }
         } else {
             emptyStateView.configure(state: .Error)
@@ -59,6 +61,7 @@ class MovieInfoViewController: UIViewController {
     func configureMovieInfoView() {
         configureTitleLabel()
         configurePosterImageView()
+        configureGenreLabel()
         configureOverviewLabel()
         configureReleaseAndRuntimeLabel()
     }
@@ -92,6 +95,21 @@ class MovieInfoViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    func configureGenreLabel() {
+        scrollContentView.addSubview(genreLabel)
+        genreLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        genreLabel.numberOfLines = 0
+        genreLabel.textColor = .black
+        genreLabel.autoPinEdge(.top, to: .bottom, of: posterImageView, withOffset: contentInset)
+        genreLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: contentInset)
+        genreLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: contentInset)
+        if let genres = movie?.genres {
+            genreLabel.text =  genres.map { (genre) -> String in
+                genre.name!
+            }.joined(separator: " | ")
+        }
+    }
+    
     func configureOverviewLabel() {
         scrollContentView.addSubview(overviewLabel)
         overviewLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -99,7 +117,7 @@ class MovieInfoViewController: UIViewController {
         overviewLabel.textColor = .black
         overviewLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: contentInset)
         overviewLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: contentInset)
-        overviewLabel.autoPinEdge(.top, to: .bottom, of: posterImageView, withOffset: contentInset)
+        overviewLabel.autoPinEdge(.top, to: .bottom, of: genreLabel, withOffset: contentInset)
         overviewLabel.text = movie?.overview
     }
     
@@ -150,7 +168,7 @@ class MovieInfoViewController: UIViewController {
         ratingsLabel.autoPinEdge(.left, to: .right, of: releaseAndRuntimeLabel)
         ratingsLabel.textAlignment = .right
         ratingsLabel.textColor = .white
-        if let voteAverage = movie?.voteAverage {
+        if let voteAverage = movie?.voteAverage, voteAverage > 0.0 {
             ratingsLabel.text = "\(voteAverage) / 10 ⭐️"
         }
     }
