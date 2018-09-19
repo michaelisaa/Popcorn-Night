@@ -158,6 +158,10 @@ class MovieInfoViewController: UIViewController {
         if  let runtime = movie!.runtime {
             labelText = "\(labelText)  ∙  \(runtime) min"
         }
+        
+        if let language = movie?.originalLanguage {
+            labelText = "\(labelText)  ∙  \(language.uppercased())"
+        }
         releaseAndRuntimeLabel.text = labelText
         releaseAndRuntimeLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         releaseAndRuntimeLabel.textColor = .white
