@@ -14,6 +14,7 @@ class MovieInfoViewController: UIViewController {
     let overviewLabel = UILabel(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
     let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
+    let releaseAndRuntimeLabel = UILabel(forAutoLayout: ())
     let movieId: Int?
     var movie: Movie?
     
@@ -58,6 +59,7 @@ class MovieInfoViewController: UIViewController {
         configureTitleLabel()
         configurePosterImageView()
         configureOverviewLabel()
+        configureReleaseAndRuntimeLabel()
     }
     
     func configureEmptyStateView() {
@@ -115,6 +117,25 @@ class MovieInfoViewController: UIViewController {
         } else {
             posterImageView.image = placeholderImage
         }
+    }
+    
+    func configureReleaseAndRuntimeLabel() {
+        
+        scrollView.addSubview(releaseAndRuntimeLabel)
+        releaseAndRuntimeLabel.insetsLayoutMarginsFromSafeArea = true
+        releaseAndRuntimeLabel.autoPinEdge(toSuperviewEdge: .left)
+        releaseAndRuntimeLabel.autoPinEdge(toSuperviewEdge: .right)
+        releaseAndRuntimeLabel.autoPinEdge(.bottom, to: .bottom, of: posterImageView)
+        releaseAndRuntimeLabel.autoSetDimension(.height, toSize: 40)
+        var labelText = String(movie!.releaseDate.split(separator: "-").first!)
+        if  let runtime = movie!.runtime {
+            labelText = labelText + " \(runtime)min"
+        }
+        releaseAndRuntimeLabel.text = labelText
+        releaseAndRuntimeLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        releaseAndRuntimeLabel.textColor = .white
+        releaseAndRuntimeLabel.backgroundColor = .black
+        releaseAndRuntimeLabel.alpha = 0.75
     }
     
     func urlForMoviePoster() -> URL? {
