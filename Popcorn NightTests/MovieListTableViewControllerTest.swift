@@ -28,9 +28,7 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - numberOfRowsInSection
     
     func test_numberOfRowsInSection_returnsMovieCount_forFirstSection() {
-        let movieA = Movie(posterPath: nil, overview: "a", releaseDate: "a", id: 0, title: "a", popularity: 0, voteAverage: 0)
-        let movieB = Movie(posterPath: nil, overview: "b", releaseDate: "b", id: 0, title: "b", popularity: 0, voteAverage: 0)
-        movieListVC.movies = [movieA, movieB]
+        movieListVC.movies = generateMovieArray(numberOfItems: 2)
         XCTAssertEqual(movieListVC.tableView(movieListVC.tableView, numberOfRowsInSection: 0), movieListVC.movies.count)
     }
     
@@ -41,22 +39,15 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - moviesToDisplay
     
     func test_moviesToDisplay_returnsMoviesListWhenNotSearching() {
-        let movieA = Movie(posterPath: nil, overview: "a", releaseDate: "a", id: 0, title: "a", popularity: 0, voteAverage: 0)
-        let movieB = Movie(posterPath: nil, overview: "b", releaseDate: "b", id: 0, title: "b", popularity: 0, voteAverage: 0)
-        let movieC = Movie(posterPath: nil, overview: "c", releaseDate: "c", id: 0, title: "c", popularity: 0, voteAverage: 0)
+        movieListVC.movies = generateMovieArray(numberOfItems: 2)
+        movieListVC.searchMovies = generateMovieArray(numberOfItems: 1)
         movieListVC.currentSearchQuery = nil
-        movieListVC.movies = [movieA, movieB]
-        movieListVC.searchMovies = [movieC]
         XCTAssertEqual(movieListVC.moviesToDisplay().count, 2)
     }
     
     func test_moviesToDisplay_returnsSearchResultsWhenSearching() {
-        let movieA = Movie(posterPath: nil, overview: "a", releaseDate: "a", id: 0, title: "a", popularity: 0, voteAverage: 0)
-        let movieB = Movie(posterPath: nil, overview: "b", releaseDate: "b", id: 0, title: "b", popularity: 0, voteAverage: 0)
-        let movieC = Movie(posterPath: nil, overview: "c", releaseDate: "c", id: 0, title: "c", popularity: 0, voteAverage: 0)
-        movieListVC.currentSearchQuery = nil
-        movieListVC.movies = [movieA, movieB]
-        movieListVC.searchMovies = [movieC]
+        movieListVC.movies = generateMovieArray(numberOfItems: 2)
+        movieListVC.searchMovies = generateMovieArray(numberOfItems: 1)
         movieListVC.currentSearchQuery = "searching"
         XCTAssertEqual(movieListVC.moviesToDisplay().count, 1)
     }
@@ -92,8 +83,7 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - updateMovieList
     
     func test_updateMovieList_updatesRightParameters() {
-        let movieA = Movie(posterPath: nil, overview: "a", releaseDate: "a", id: 0, title: "a", popularity: 0, voteAverage: 0)
-        let response = MoviesAPIResponse(page: 1, totalResults: 100, totalPages: 100, results: [movieA])
+        let response = MoviesAPIResponse(page: 1, totalResults: 100, totalPages: 100, results: generateMovieArray(numberOfItems: 1))
         movieListVC.canPage = false
         movieListVC.pageNumber = 32
         movieListVC.movies = []
@@ -106,8 +96,7 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - updateSearchList
     
     func test_updateSearchList_updatesRightParameters() {
-        let movieA = Movie(posterPath: nil, overview: "a", releaseDate: "a", id: 0, title: "a", popularity: 0, voteAverage: 0)
-        let response = MoviesAPIResponse(page: 1, totalResults: 100, totalPages: 100, results: [movieA])
+        let response = MoviesAPIResponse(page: 1, totalResults: 100, totalPages: 100, results: generateMovieArray(numberOfItems: 1))
         movieListVC.searchCanPage = false
         movieListVC.searchPageNumber = 32
         movieListVC.searchMovies = []
@@ -131,5 +120,35 @@ class MovieListTableViewControllerTest: XCTestCase {
         movieListVC.configureSearchController()
         XCTAssertFalse(movieListVC.searchController.obscuresBackgroundDuringPresentation)
         XCTAssertFalse(movieListVC.searchController.dimsBackgroundDuringPresentation)
+    }
+    
+    // MARK: - cellForRowAt
+    
+    func test_cellForRowAt_returns_loadingCellForSectionOne() {
+        movieListVC.movies = generateMovieArray(numberOfItems: 1)
+        movieListVC.canPage = true
+        movieListVC.viewDidLoad()
+        let cell = movieListVC.tableView(movieListVC.tableView, cellForRowAt: IndexPath(row: 0, section: 1))
+        XCTAssertTrue(cell.classForCoder == LoadingCell.classForCoder())
+    }
+    
+    func test_cellForRowAt_returns_MovieCellForSectionZero() {
+        movieListVC.movies = generateMovieArray(numberOfItems: 1)
+        movieListVC.canPage = true
+        movieListVC.viewDidLoad()
+        let cell = movieListVC.tableView(movieListVC.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
+        XCTAssertTrue(cell.classForCoder == MovieListCell.classForCoder())
+    }
+    
+    // MARK: - Test Helper
+    
+    func generateMovieArray(numberOfItems: Int) -> [Movie] {
+        var movies = [Movie]()
+        for i in 1...numberOfItems {
+            let title = String(i)
+            let movie = Movie(posterPath: nil, overview: title, releaseDate: title, id: 0, title: title, popularity: 0, voteAverage: 0)
+            movies.append(movie)
+        }
+        return movies
     }
 }
