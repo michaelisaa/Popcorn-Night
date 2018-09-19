@@ -11,6 +11,7 @@ import PureLayout
 
 class MovieInfoViewController: UIViewController {
     let movie: Movie?
+    let scrollView = UIScrollView(forAutoLayout: ())
     let overviewLabel = UILabel(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
     
@@ -27,12 +28,18 @@ class MovieInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        configureScrollView()
         configureTitleLabel()
         configurePosterImageView()
         configureOverviewLabel()
     }
     
     // MARK: - Configure Views
+    
+    func configureScrollView() {
+        view.addSubview(scrollView)
+        scrollView.autoPinEdgesToSuperviewEdges()
+    }
     
     func configureTitleLabel() {
 //        view.addSubview(titleLabel)
@@ -45,11 +52,10 @@ class MovieInfoViewController: UIViewController {
 //        titleLabel.autoPinEdge(toSuperviewSafeArea: .top)
         navigationItem.title = movie?.title
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.isTranslucent = true
     }
     
     func configureOverviewLabel() {
-        view.addSubview(overviewLabel)
+        scrollView.addSubview(overviewLabel)
         overviewLabel.text = movie?.overview
         overviewLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         overviewLabel.numberOfLines = 0
@@ -60,13 +66,12 @@ class MovieInfoViewController: UIViewController {
     }
     
     func configurePosterImageView() {
-        view.addSubview(posterImageView)
+        scrollView.addSubview(posterImageView)
         posterImageView.autoPinEdge(toSuperviewEdge: .left)
-        posterImageView.autoPinEdge(toSuperviewSafeArea: .top)
+        posterImageView.autoPinEdge(toSuperviewEdge: .top)
         posterImageView.autoPinEdge(toSuperviewEdge: .right)
         posterImageView.autoSetDimension(.height, toSize: 300)
         posterImageView.contentMode = .scaleAspectFill
-        posterImageView.clipsToBounds = true
         view.sendSubview(toBack: posterImageView)
         let placeholderImage = UIImage(imageLiteralResourceName: "moviePlaceholderIcon")
         if let url = urlForMoviePoster() {
