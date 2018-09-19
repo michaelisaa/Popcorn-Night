@@ -11,6 +11,7 @@ import PureLayout
 
 class MovieInfoViewController: UIViewController {
     let scrollView = UIScrollView(forAutoLayout: ())
+    let scrollContentView = UIView(forAutoLayout: ())
     let overviewLabel = UILabel(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
     let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
@@ -72,6 +73,10 @@ class MovieInfoViewController: UIViewController {
     func configureScrollView() {
         view.addSubview(scrollView)
         scrollView.autoPinEdgesToSuperviewEdges()
+        scrollView.addSubview(scrollContentView)
+        scrollContentView.autoPinEdgesToSuperviewEdges()
+        scrollContentView.autoMatch(.width, to: .width, of: scrollView, withOffset: 0)
+        scrollContentView.autoMatch(.height, to: .height, of: scrollView, withOffset: 0)
     }
     
     func configureTitleLabel() {
@@ -88,23 +93,24 @@ class MovieInfoViewController: UIViewController {
     }
     
     func configureOverviewLabel() {
-        scrollView.addSubview(overviewLabel)
-        overviewLabel.text = movie?.overview
+        scrollContentView.addSubview(overviewLabel)
         overviewLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         overviewLabel.numberOfLines = 0
         overviewLabel.textColor = .black
         overviewLabel.autoPinEdge(toSuperviewSafeArea: .left)
         overviewLabel.autoPinEdge(toSuperviewSafeArea: .right)
-        overviewLabel.autoPinEdge(.top, to: .bottom, of: posterImageView)
+        overviewLabel.autoPinEdge(.top, to: .bottom, of: posterImageView, withOffset: 10)
+        overviewLabel.text = movie?.overview
     }
     
     func configurePosterImageView() {
-        scrollView.addSubview(posterImageView)
+        scrollContentView.addSubview(posterImageView)
         posterImageView.autoPinEdge(toSuperviewEdge: .left)
         posterImageView.autoPinEdge(toSuperviewEdge: .top)
         posterImageView.autoPinEdge(toSuperviewEdge: .right)
         posterImageView.autoSetDimension(.height, toSize: 300)
         posterImageView.contentMode = .scaleAspectFill
+        posterImageView.clipsToBounds = true
         view.sendSubview(toBack: posterImageView)
         let placeholderImage = UIImage(imageLiteralResourceName: "moviePlaceholderIcon")
         if let url = urlForMoviePoster() {
@@ -120,22 +126,23 @@ class MovieInfoViewController: UIViewController {
     }
     
     func configureReleaseAndRuntimeLabel() {
-        
-        scrollView.addSubview(releaseAndRuntimeLabel)
-        releaseAndRuntimeLabel.insetsLayoutMarginsFromSafeArea = true
-        releaseAndRuntimeLabel.autoPinEdge(toSuperviewEdge: .left)
-        releaseAndRuntimeLabel.autoPinEdge(toSuperviewEdge: .right)
-        releaseAndRuntimeLabel.autoPinEdge(.bottom, to: .bottom, of: posterImageView)
-        releaseAndRuntimeLabel.autoSetDimension(.height, toSize: 40)
+        let backgroundView = UIView(forAutoLayout: ())
+        backgroundView.backgroundColor = .black
+        backgroundView.alpha = 0.75
+        scrollContentView.addSubview(backgroundView)
+        backgroundView.autoPinEdge(toSuperviewEdge: .left)
+        backgroundView.autoPinEdge(toSuperviewEdge: .right)
+        backgroundView.autoPinEdge(.bottom, to: .bottom, of: posterImageView)
+        backgroundView.autoSetDimension(.height, toSize: 40)
         var labelText = String(movie!.releaseDate.split(separator: "-").first!)
         if  let runtime = movie!.runtime {
-            labelText = labelText + " \(runtime)min"
+            labelText = "  \(labelText)  ∙  \(runtime) min"
         }
         releaseAndRuntimeLabel.text = labelText
         releaseAndRuntimeLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         releaseAndRuntimeLabel.textColor = .white
-        releaseAndRuntimeLabel.backgroundColor = .black
-        releaseAndRuntimeLabel.alpha = 0.75
+        backgroundView.addSubview(releaseAndRuntimeLabel)
+        releaseAndRuntimeLabel.autoPinEdgesToSuperviewSafeArea()
     }
     
     func urlForMoviePoster() -> URL? {
