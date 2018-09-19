@@ -10,12 +10,15 @@ import Foundation
 
 struct Movie: Decodable {
     let posterPath: String?
+    let backdropPath: String?
     let overview: String
     let releaseDate: String
     let id: Int
     let title: String
     let popularity: Float
     let voteAverage: Float
+    let originalLanguage: String?
+    let voteCount: Int
     
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
@@ -25,5 +28,8 @@ struct Movie: Decodable {
         case title = "title"
         case popularity = "popularity"
         case voteAverage = "vote_average"
+        case backdropPath = "backdrop_path"
+        case originalLanguage = "original_language"
+        case voteCount = "vote_count"
     }
 }
