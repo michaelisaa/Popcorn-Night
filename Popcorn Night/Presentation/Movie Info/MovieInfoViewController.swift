@@ -14,6 +14,7 @@ class MovieInfoViewController: UIViewController {
     let scrollContentView = UIView(forAutoLayout: ())
     let overviewLabel = UILabel(forAutoLayout: ())
     let genreLabel = UILabel(forAutoLayout: ())
+    let revenueLabel = UILabel(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
     let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
     let movieId: Int?
@@ -64,6 +65,8 @@ class MovieInfoViewController: UIViewController {
         configureGenreLabel()
         configureOverviewLabel()
         configureReleaseAndRuntimeLabel()
+        configureRevenueLabel()
+        configureHomepageLinkeLabel()
     }
     
     func configureEmptyStateView() {
@@ -174,6 +177,37 @@ class MovieInfoViewController: UIViewController {
         ratingsLabel.textColor = .white
         if let voteAverage = movie?.voteAverage, voteAverage > 0.0 {
             ratingsLabel.text = "\(voteAverage) / 10 ⭐️"
+        }
+    }
+    
+    func configureRevenueLabel() {
+        scrollContentView.addSubview(revenueLabel)
+        revenueLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        revenueLabel.numberOfLines = 1
+        revenueLabel.textColor = .black
+        revenueLabel.autoPinEdge(toSuperviewSafeArea: .left, withInset: contentInset)
+        revenueLabel.autoPinEdge(toSuperviewSafeArea: .right, withInset: contentInset)
+        revenueLabel.autoPinEdge(.top, to: .bottom, of: overviewLabel, withOffset: contentInset)
+        if let revenue = movie?.revenue, revenue > 0 {
+            revenueLabel.text = "$\(revenue)"
+        }
+    }
+    
+    func configureHomepageLinkeLabel() {
+        
+        let homePageLinkTextView = UITextView(forAutoLayout: ())
+        homePageLinkTextView.isEditable = false
+        homePageLinkTextView.dataDetectorTypes = .link
+        scrollContentView.addSubview(homePageLinkTextView)
+        homePageLinkTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        homePageLinkTextView.textColor = .black
+        homePageLinkTextView.tintColor = .blue
+        homePageLinkTextView.autoPinEdge(toSuperviewSafeArea: .left, withInset: contentInset)
+        homePageLinkTextView.autoPinEdge(toSuperviewSafeArea: .right, withInset: contentInset)
+        homePageLinkTextView.autoPinEdge(.top, to: .bottom, of: revenueLabel, withOffset: contentInset)
+        homePageLinkTextView.autoSetDimension(.height, toSize: 30)
+        if let homeLink = movie?.homepage {
+            homePageLinkTextView.text = homeLink
         }
     }
     
