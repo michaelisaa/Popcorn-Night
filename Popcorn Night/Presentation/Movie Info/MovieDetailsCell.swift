@@ -133,14 +133,5 @@ class MovieDetailsCell: UITableViewCell {
         infoLabel.text = nil
         linkTextView.text = movie.homepage
         linkTextView.isHidden = false
-    }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        
-    }
-    
+    }    
 }

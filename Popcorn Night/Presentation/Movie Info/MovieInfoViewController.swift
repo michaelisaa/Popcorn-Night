@@ -91,6 +91,7 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
     }
     
     func configureNavbar() {

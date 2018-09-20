@@ -22,14 +22,14 @@ class MovieListCellSnapshotTest: FBSnapshotTestCase {
     }
     
     func test_configureMovie_withShortTitle_shortOverview() {
-        let movie = Movie(posterPath: nil, overview: "Overview", releaseDate: "1", id: 1, title: "Title", popularity: 1, voteAverage: 1)
+        let movie = TestHelper.generateMovie(title: "Title", overview: "Overview")
         movieCell.configure(movie: movie)
         FBSnapshotVerifyView(movieCell)
     }
     
     func test_configureMovie_withLongTitle_shortOverview() {
         let longTitle = "Very long title that should be way too long for the label to show"
-        let movie = Movie(posterPath: nil, overview: "Overview", releaseDate: "1", id: 1, title: longTitle, popularity: 1, voteAverage: 1)
+        let movie = TestHelper.generateMovie(title: longTitle, overview: "Overview")
         movieCell.configure(movie: movie)
         FBSnapshotVerifyView(movieCell)
     }
@@ -41,9 +41,8 @@ class MovieListCellSnapshotTest: FBSnapshotTestCase {
                             to show and should be on multiple lines. It should keep going
                             for a while
                            """
-        let movie = Movie(posterPath: nil, overview: longOverview, releaseDate: "1", id: 1, title: longTitle, popularity: 1, voteAverage: 1)
+        let movie = TestHelper.generateMovie(title: longTitle, overview: longOverview)
         movieCell.configure(movie: movie)
         FBSnapshotVerifyView(movieCell)
     }
-    
 }

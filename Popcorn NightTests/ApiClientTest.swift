@@ -160,6 +160,7 @@ class ApiClientTest: XCTestCase {
             "title": "title",
             "popularity": 0,
             "vote_average" : 0,
+            "vote_count": 0
             ]
         
         return [
