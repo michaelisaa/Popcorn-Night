@@ -17,6 +17,7 @@
 		0F1F3EA22151917C00384B90 /* MovieListEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EA12151917C00384B90 /* MovieListEmptyStateView.swift */; };
 		0F1F3EA42151AEC100384B90 /* MovieListEmptyStateViewSnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EA32151AEC100384B90 /* MovieListEmptyStateViewSnapshotTest.swift */; };
 		0F1F3EA72152DAC700384B90 /* MovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EA62152DAC700384B90 /* MovieInfoViewController.swift */; };
+		0F1F3EA92154280200384B90 /* MovieDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EA82154280200384B90 /* MovieDetailsCell.swift */; };
 		0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C2A2150231800C61B53 /* AppDelegate.swift */; };
 		0F212C2D2150231800C61B53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C2C2150231800C61B53 /* ViewController.swift */; };
 		0F212C302150231800C61B53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C2E2150231800C61B53 /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 		0F1F3EA12151917C00384B90 /* MovieListEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListEmptyStateView.swift; sourceTree = "<group>"; };
 		0F1F3EA32151AEC100384B90 /* MovieListEmptyStateViewSnapshotTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListEmptyStateViewSnapshotTest.swift; sourceTree = "<group>"; };
 		0F1F3EA62152DAC700384B90 /* MovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewController.swift; sourceTree = "<group>"; };
+		0F1F3EA82154280200384B90 /* MovieDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsCell.swift; sourceTree = "<group>"; };
 		0F212C272150231700C61B53 /* Popcorn Night.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn Night.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F212C2A2150231800C61B53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F212C2C2150231800C61B53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				0F1F3EA62152DAC700384B90 /* MovieInfoViewController.swift */,
+				0F1F3EA82154280200384B90 /* MovieDetailsCell.swift */,
 			);
 			path = "Movie Info";
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				0F212C2D2150231800C61B53 /* ViewController.swift in Sources */,
 				0F1F3E9521513EB300384B90 /* LoadingCell.swift in Sources */,
 				0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */,
+				0F1F3EA92154280200384B90 /* MovieDetailsCell.swift in Sources */,
 				0FA119542150405D0011D60A /* Movie.swift in Sources */,
 				0FA1195621504C020011D60A /* MoviesAPIResponse.swift in Sources */,
 				0F1F3E9321512DF200384B90 /* MovieListCell.swift in Sources */,
