@@ -8,11 +8,10 @@
 
 import Alamofire
 
-
-
 class APICLient {
     
     typealias MoviesAPISuccess = (_ success:MoviesAPIResponse) -> Void
+    typealias MoviesDetailsAPISuccess = (_ success:Movie) -> Void
     typealias MoviesAPIFailure = (_ error:Error) -> Void
     
     static let baseURLString = "https://api.themoviedb.org/3/"
@@ -33,6 +32,26 @@ class APICLient {
             "page": page
             ]
         getRequest(requestedURL: generateRequestURL(requestURL: "search/movie"), parameters: parameters, success: success, failure: failure)
+    }
+    
+    class public func getMovieDetails(movieId: Int, success: @escaping MoviesDetailsAPISuccess, failure: @escaping MoviesAPIFailure) {
+        let parameters: Parameters = [
+            "api_key": apiKey,
+            ]
+        let urlString = generateRequestURL(requestURL: "movie/\(movieId)")
+        Alamofire.request(urlString, parameters: parameters).validate().responseData { response in
+            switch response.result {
+            case .success:
+                do {
+                    let movieDetails = try JSONDecoder().decode(Movie.self, from: response.data!)
+                    success(movieDetails)
+                } catch let jsonError {
+                    failure(jsonError)
+                }
+            case .failure(let error):
+                failure(error)
+            }
+        }
     }
     
     class func getRequest(requestedURL: String, parameters: Parameters, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {

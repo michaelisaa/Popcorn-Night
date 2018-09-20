@@ -16,6 +16,10 @@
 		0F1F3E9E2151612C00384B90 /* MovieListTableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E9D2151612C00384B90 /* MovieListTableViewControllerTest.swift */; };
 		0F1F3EA22151917C00384B90 /* MovieListEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EA12151917C00384B90 /* MovieListEmptyStateView.swift */; };
 		0F1F3EA42151AEC100384B90 /* MovieListEmptyStateViewSnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EA32151AEC100384B90 /* MovieListEmptyStateViewSnapshotTest.swift */; };
+		0F1F3EA72152DAC700384B90 /* MovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EA62152DAC700384B90 /* MovieInfoViewController.swift */; };
+		0F1F3EA92154280200384B90 /* MovieDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EA82154280200384B90 /* MovieDetailsCell.swift */; };
+		0F1F3EAD2154451800384B90 /* MovieDetailsCellSnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EAC2154451800384B90 /* MovieDetailsCellSnapshotTest.swift */; };
+		0F1F3EAF2154471300384B90 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EAE2154471300384B90 /* TestHelper.swift */; };
 		0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C2A2150231800C61B53 /* AppDelegate.swift */; };
 		0F212C2D2150231800C61B53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C2C2150231800C61B53 /* ViewController.swift */; };
 		0F212C302150231800C61B53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C2E2150231800C61B53 /* Main.storyboard */; };
@@ -58,6 +62,10 @@
 		0F1F3E9D2151612C00384B90 /* MovieListTableViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableViewControllerTest.swift; sourceTree = "<group>"; };
 		0F1F3EA12151917C00384B90 /* MovieListEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListEmptyStateView.swift; sourceTree = "<group>"; };
 		0F1F3EA32151AEC100384B90 /* MovieListEmptyStateViewSnapshotTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListEmptyStateViewSnapshotTest.swift; sourceTree = "<group>"; };
+		0F1F3EA62152DAC700384B90 /* MovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewController.swift; sourceTree = "<group>"; };
+		0F1F3EA82154280200384B90 /* MovieDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsCell.swift; sourceTree = "<group>"; };
+		0F1F3EAC2154451800384B90 /* MovieDetailsCellSnapshotTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsCellSnapshotTest.swift; sourceTree = "<group>"; };
+		0F1F3EAE2154471300384B90 /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		0F212C272150231700C61B53 /* Popcorn Night.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn Night.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F212C2A2150231800C61B53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F212C2C2150231800C61B53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +134,7 @@
 		0F1F3E8E215129F200384B90 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				0F1F3EA52152DA8600384B90 /* Movie Info */,
 				0F1F3E9121512DD000384B90 /* Movie List */,
 			);
 			path = Presentation;
@@ -148,8 +157,18 @@
 				0F1F3E96215157B100384B90 /* MovieListCellSnapshotTest.swift */,
 				0F1F3E9821515C0D00384B90 /* LoadingCellSnapshotTest.swift */,
 				0F1F3EA32151AEC100384B90 /* MovieListEmptyStateViewSnapshotTest.swift */,
+				0F1F3EAC2154451800384B90 /* MovieDetailsCellSnapshotTest.swift */,
 			);
 			path = "Snapshot Tests";
+			sourceTree = "<group>";
+		};
+		0F1F3EA52152DA8600384B90 /* Movie Info */ = {
+			isa = PBXGroup;
+			children = (
+				0F1F3EA62152DAC700384B90 /* MovieInfoViewController.swift */,
+				0F1F3EA82154280200384B90 /* MovieDetailsCell.swift */,
+			);
+			path = "Movie Info";
 			sourceTree = "<group>";
 		};
 		0F212C1E2150231700C61B53 = {
@@ -198,6 +217,7 @@
 				0F1F3E9B21515F4D00384B90 /* MovieListCellTest.swift */,
 				0F1F3E9D2151612C00384B90 /* MovieListTableViewControllerTest.swift */,
 				0F212C412150231B00C61B53 /* Info.plist */,
+				0F1F3EAE2154471300384B90 /* TestHelper.swift */,
 			);
 			path = "Popcorn NightTests";
 			sourceTree = "<group>";
@@ -477,9 +497,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F1F3E9021512A2300384B90 /* MovieListTableViewController.swift in Sources */,
+				0F1F3EA72152DAC700384B90 /* MovieInfoViewController.swift in Sources */,
 				0F212C2D2150231800C61B53 /* ViewController.swift in Sources */,
 				0F1F3E9521513EB300384B90 /* LoadingCell.swift in Sources */,
 				0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */,
+				0F1F3EA92154280200384B90 /* MovieDetailsCell.swift in Sources */,
 				0FA119542150405D0011D60A /* Movie.swift in Sources */,
 				0FA1195621504C020011D60A /* MoviesAPIResponse.swift in Sources */,
 				0F1F3E9321512DF200384B90 /* MovieListCell.swift in Sources */,
@@ -494,8 +516,10 @@
 			files = (
 				0F1F3E9E2151612C00384B90 /* MovieListTableViewControllerTest.swift in Sources */,
 				0F1F3EA42151AEC100384B90 /* MovieListEmptyStateViewSnapshotTest.swift in Sources */,
+				0F1F3EAD2154451800384B90 /* MovieDetailsCellSnapshotTest.swift in Sources */,
 				0F212C402150231B00C61B53 /* ApiClientTest.swift in Sources */,
 				0F1F3E9C21515F4D00384B90 /* MovieListCellTest.swift in Sources */,
+				0F1F3EAF2154471300384B90 /* TestHelper.swift in Sources */,
 				0F1F3E9921515C0D00384B90 /* LoadingCellSnapshotTest.swift in Sources */,
 				0F1F3E97215157B100384B90 /* MovieListCellSnapshotTest.swift in Sources */,
 			);
