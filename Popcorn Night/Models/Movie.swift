@@ -102,4 +102,17 @@ struct Movie: Codable {
         try container.encode(homepage, forKey: .homepage)
         try container.encode(genreIds, forKey: .genreIds)
     }
+    
+    func genresString() -> String? {
+        if let genres = genres {
+            return genres.map { (genre) -> String in
+                genre.name!
+                }.joined(separator: " | ")
+        }
+        return nil
+    }
+    
+    func releaseYear() -> String {
+        return String(releaseDate.split(separator: "-").first!)
+    }
 }
