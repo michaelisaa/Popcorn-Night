@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Genre: Decodable {
+struct Genre: Codable {
     let genreId: Int
     let name: String?
     
@@ -16,6 +16,20 @@ struct Genre: Decodable {
         case genreId = "id"
         case name = "name"
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        genreId = try container.decode(Int.self, forKey: .genreId)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(genreId, forKey: .genreId)
+    }
+    
+    
 }
 
 struct Movie: Codable {
@@ -34,12 +48,6 @@ struct Movie: Codable {
     let runtime: Int?
     let genres: [Genre]?
     let genreIds: [Int]?
-    
-    static var filePath: String {
-        let manager = FileManager.default
-        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-        return (url!.appendingPathComponent("Data").path)
-    }
     
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
@@ -94,26 +102,5 @@ struct Movie: Codable {
         try container.encode(originalLanguage, forKey: .originalLanguage)
         try container.encode(homepage, forKey: .homepage)
         try container.encode(genreIds, forKey: .genreIds)
-    }
-    
-    static func save(movies: [Movie]) {
-        do {
-            let data = try PropertyListEncoder().encode(movies)
-            let success = NSKeyedArchiver.archiveRootObject(data, toFile: filePath)
-            print(success ? "Successful save" : "Save Failed")
-        } catch {
-            print("Save Failed  \(error)")
-        }
-    }
-    
-    static func loadMoviesFromStore() -> [Movie]? {
-        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? Data else { return nil }
-        do {
-            let movies = try PropertyListDecoder().decode([Movie].self, from: data)
-            return movies
-        } catch {
-            print("Retrieve Failed")
-            return nil
-        }
     }
 }

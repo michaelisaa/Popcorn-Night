@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F1C9293215569800095B55B /* MovieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1C9292215569800095B55B /* MovieStore.swift */; };
 		0F1F3E9021512A2300384B90 /* MovieListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E8F21512A2300384B90 /* MovieListTableViewController.swift */; };
 		0F1F3E9321512DF200384B90 /* MovieListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E9221512DF200384B90 /* MovieListCell.swift */; };
 		0F1F3E9521513EB300384B90 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E9421513EB300384B90 /* LoadingCell.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F1C9292215569800095B55B /* MovieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieStore.swift; sourceTree = "<group>"; };
 		0F1F3E8F21512A2300384B90 /* MovieListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableViewController.swift; sourceTree = "<group>"; };
 		0F1F3E9221512DF200384B90 /* MovieListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCell.swift; sourceTree = "<group>"; };
 		0F1F3E9421513EB300384B90 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
@@ -131,6 +133,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0F1C9294215569840095B55B /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				0F1C9292215569800095B55B /* MovieStore.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		0F1F3E8E215129F200384B90 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +206,7 @@
 		0F212C292150231800C61B53 /* Popcorn Night */ = {
 			isa = PBXGroup;
 			children = (
+				0F1C9294215569840095B55B /* Storage */,
 				0F1F3E8E215129F200384B90 /* Presentation */,
 				0FA119522150404D0011D60A /* Models */,
 				0FA1194F2150328D0011D60A /* Networking */,
@@ -497,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F1F3E9021512A2300384B90 /* MovieListTableViewController.swift in Sources */,
+				0F1C9293215569800095B55B /* MovieStore.swift in Sources */,
 				0F1F3EA72152DAC700384B90 /* MovieInfoViewController.swift in Sources */,
 				0F212C2D2150231800C61B53 /* ViewController.swift in Sources */,
 				0F1F3E9521513EB300384B90 /* LoadingCell.swift in Sources */,

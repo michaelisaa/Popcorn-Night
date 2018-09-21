@@ -48,11 +48,6 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         navigationItem.hidesSearchBarWhenScrolling = true
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        Movie.save(movies: movies)
-    }
-    
     // MARK: - Configuration
     
     func configureEmptyStateView() {
@@ -92,8 +87,8 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - Datasource
     
     func fetchPopularMovies() {
-        if movies.count == 0, let moviesFromDisk = Movie.loadMoviesFromStore() {
-            self.movies = moviesFromDisk
+        if movies.count == 0, let moviesFromStore = MovieStore.shared.loadMoviesFromStore() {
+            self.movies = moviesFromStore
             self.canPage = true
             self.pageNumber = 2
         } else {
@@ -127,9 +122,12 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func updateMovieList(movieAPIresponse: MoviesAPIResponse) {
+        movies += movieAPIresponse.results
+        if pageNumber == 1 {
+            MovieStore.shared.store(movies: movies)
+        }
         pageNumber += 1
         canPage = pageNumber <= movieAPIresponse.totalPages
-        movies += movieAPIresponse.results
         tableView.reloadData()
     }
     
