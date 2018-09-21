@@ -11,11 +11,33 @@ import Alamofire
 class APICLient {
     
     typealias MoviesAPISuccess = (_ success:MoviesAPIResponse) -> Void
-    typealias MoviesDetailsAPISuccess = (_ success:Movie) -> Void
+    typealias MoviesDetailsAPISuccess = (_ success: Movie) -> Void
+    typealias GenreListAPISuccess = (_ success: [Genre]) -> Void
     typealias MoviesAPIFailure = (_ error:Error) -> Void
     
     static let baseURLString = "https://api.themoviedb.org/3/"
     static let apiKey = "796fee77f2c23a16feb57f8b626c2dbf"
+    
+    
+    class public func getGenreList(success: @escaping GenreListAPISuccess, failure: @escaping MoviesAPIFailure) {
+        let parameters: Parameters = [
+            "api_key": apiKey,
+        ]
+        let urlString = generateRequestURL(requestURL: "genre/movie/list")
+        Alamofire.request(urlString, parameters: parameters).validate().responseData { response in
+            switch response.result {
+            case .success:
+                do {
+                    let genreList = try JSONDecoder().decode(GenreAPIResponse.self, from: response.data!)
+                    success(genreList.genres)
+                } catch let jsonError {
+                    failure(jsonError)
+                }
+            case .failure(let error):
+                failure(error)
+            }
+        }
+    }
     
     class public func listRecentMovies(page: Int, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
         let parameters: Parameters = [

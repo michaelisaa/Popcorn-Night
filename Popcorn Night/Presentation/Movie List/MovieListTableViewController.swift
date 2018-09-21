@@ -25,17 +25,28 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
     var timer: Timer?
     let timerLimit = 0.3
+    var movieGenres: [Int: Genre]?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureMovieGenres()
         view.backgroundColor = .white
         configureNavbar()
         configureTableView()
         configureSearchController()
         configureEmptyStateView()
         fetchPopularMovies()
+    }
+    
+    func configureMovieGenres() {
+        if let genres = MovieStore.shared.loadGenresFromStore() {
+            self.movieGenres = [Int :Genre]()
+            for genre in genres {
+                self.movieGenres![genre.genreId] = genre
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,10 +132,31 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
+    func addGenresToMovies(movies: [Movie]) -> [Movie] {
+        var updatedMovies = movies
+        if let movieGenres = movieGenres {
+            for index in updatedMovies.indices {
+                var movie = movies[index]
+                if let genreIds = movie.genreIds {
+                    var genres = [Genre]()
+                    for genreId in genreIds {
+                        if let genre = movieGenres[genreId] {
+                            genres.append(genre)
+                        }
+                    }
+                    movie.genres = genres
+                    updatedMovies[index] = movie
+                }
+            }
+        }
+        return updatedMovies
+    }
+    
     func updateMovieList(movieAPIresponse: MoviesAPIResponse) {
-        movies += movieAPIresponse.results
+        let newMovies = addGenresToMovies(movies: movieAPIresponse.results)
+        movies += newMovies
         if pageNumber == 1 {
-            MovieStore.shared.store(movies: movies)
+            MovieStore.shared.store(movies: newMovies)
         }
         pageNumber += 1
         canPage = pageNumber <= movieAPIresponse.totalPages
@@ -133,7 +165,8 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func updateSearchList(movieAPIresponse: MoviesAPIResponse) {
         searchPageNumber += 1
-        searchMovies += movieAPIresponse.results
+        let newMovies = addGenresToMovies(movies: movieAPIresponse.results)
+        searchMovies += newMovies
         searchCanPage = searchPageNumber <= movieAPIresponse.totalPages
         tableView.reloadData()
     }
