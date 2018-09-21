@@ -7,20 +7,43 @@
 //
 
 @testable import Popcorn_Night
+import Foundation
 
 class TestHelper  {
     
-    class func generateMovie(title: String, overview: String) -> Movie {
-        return Movie(posterPath: "path/to/poster", backdropPath: nil, overview: overview, releaseDate: "2018-01-03", movieId: 0, title: title, popularity: 0, voteAverage: 8.9, originalLanguage: "En", voteCount: 1, budget: 1, homepage: "www.google.com", revenue: 1000, runtime: 180, tagline: "f", genres: [Genre(genreId: 1, name: "Action")], genreIds: nil)
+    class func generateMovie() -> Movie? {
+        let data = loadDataFromFile(fileName: "Movies")
+        do {
+            let movies = try JSONDecoder().decode([Movie].self, from: data)
+            return movies.first
+        } catch {
+            return nil
+        }
     }
     
-    class func generateMovieArray(numberOfItems: Int) -> [Movie] {
-        var movies = [Movie]()
-        for i in 1...numberOfItems {
-            let title = String(i)
-            let movie = generateMovie(title: title, overview: title)
-            movies.append(movie)
+    class func generateMovieArray(numberOfItems: Int) -> [Movie]? {
+        let data = loadDataFromFile(fileName: "Movies")
+        do {
+            let movies = try JSONDecoder().decode([Movie].self, from: data)
+            return Array(movies[0...(numberOfItems - 1)])
+        } catch {
+            return nil
         }
-        return movies
+    }
+    
+    class func pathForFile(fileName: String, type: String) -> String? {
+        return Bundle(for: self).path(forResource: fileName, ofType: type)
+    }
+    
+    class func loadDataFromFile(fileName: String) -> Data {
+        if let path = pathForFile(fileName: fileName, type: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                return data
+            } catch {
+                return Data()
+            }
+        }
+        return Data()
     }
 }

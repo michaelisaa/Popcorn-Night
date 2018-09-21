@@ -67,6 +67,7 @@ struct Movie: Codable {
         case genreIds = "genre_ids"
     }
     
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         posterPath = try container.decode(String.self, forKey: .posterPath)

@@ -15,10 +15,11 @@ import UIKit
 class MovieDetailsCellSnapshotTest: FBSnapshotTestCase {
     
     let movieDetailsCell = MovieDetailsCell()
-    let movie = Movie(posterPath: nil, backdropPath: nil, overview: "Overview test", releaseDate: "2018-01-03", movieId: 0, title: "title", popularity: 0, voteAverage: 8.9, originalLanguage: "En", voteCount: 1, budget: 1, homepage: "www.google.com", revenue: 1000, runtime: 180, tagline: "f", genres: [Genre(genreId: 1, name: "Action")], genreIds: nil)
+    let movie = TestHelper.generateMovie()!
     
     override func setUp() {
         super.setUp()
+        movieDetailsCell.frame = CGRect(x: 0, y: 0, width: 350, height: 120)
     }
     
     func test_configure_forSummary() {
