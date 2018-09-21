@@ -28,7 +28,7 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - numberOfRowsInSection
     
     func test_numberOfRowsInSection_returnsMovieCount_forFirstSection() {
-        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 2)
+        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 2)!
         XCTAssertEqual(movieListVC.tableView(movieListVC.tableView, numberOfRowsInSection: 0), movieListVC.movies.count)
     }
     
@@ -39,15 +39,15 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - moviesToDisplay
     
     func test_moviesToDisplay_returnsMoviesListWhenNotSearching() {
-        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 2)
-        movieListVC.searchMovies = TestHelper.generateMovieArray(numberOfItems: 1)
+        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 2)!
+        movieListVC.searchMovies = TestHelper.generateMovieArray(numberOfItems: 1)!
         movieListVC.currentSearchQuery = nil
         XCTAssertEqual(movieListVC.moviesToDisplay().count, 2)
     }
     
     func test_moviesToDisplay_returnsSearchResultsWhenSearching() {
-        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 2)
-        movieListVC.searchMovies = TestHelper.generateMovieArray(numberOfItems: 1)
+        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 2)!
+        movieListVC.searchMovies = TestHelper.generateMovieArray(numberOfItems: 1)!
         movieListVC.currentSearchQuery = "searching"
         XCTAssertEqual(movieListVC.moviesToDisplay().count, 1)
     }
@@ -83,7 +83,7 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - updateMovieList
     
     func test_updateMovieList_updatesRightParameters() {
-        let response = MoviesAPIResponse(page: 1, totalResults: 100, totalPages: 100, results: TestHelper.generateMovieArray(numberOfItems: 1))
+        let response = MoviesAPIResponse(page: 1, totalResults: 100, totalPages: 100, results: TestHelper.generateMovieArray(numberOfItems: 1)!)
         movieListVC.canPage = false
         movieListVC.pageNumber = 32
         movieListVC.movies = []
@@ -96,7 +96,7 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - updateSearchList
     
     func test_updateSearchList_updatesRightParameters() {
-        let response = MoviesAPIResponse(page: 1, totalResults: 100, totalPages: 100, results: TestHelper.generateMovieArray(numberOfItems: 1))
+        let response = MoviesAPIResponse(page: 1, totalResults: 100, totalPages: 100, results: TestHelper.generateMovieArray(numberOfItems: 1)!)
         movieListVC.searchCanPage = false
         movieListVC.searchPageNumber = 32
         movieListVC.searchMovies = []
@@ -125,7 +125,7 @@ class MovieListTableViewControllerTest: XCTestCase {
     // MARK: - cellForRowAt
     
     func test_cellForRowAt_returns_loadingCellForSectionOne() {
-        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 1)
+        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 1)!
         movieListVC.canPage = true
         movieListVC.viewDidLoad()
         let cell = movieListVC.tableView(movieListVC.tableView, cellForRowAt: IndexPath(row: 0, section: 1))
@@ -133,7 +133,7 @@ class MovieListTableViewControllerTest: XCTestCase {
     }
     
     func test_cellForRowAt_returns_MovieCellForSectionZero() {
-        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 1)
+        movieListVC.movies = TestHelper.generateMovieArray(numberOfItems: 1)!
         movieListVC.canPage = true
         movieListVC.viewDidLoad()
         let cell = movieListVC.tableView(movieListVC.tableView, cellForRowAt: IndexPath(row: 0, section: 0))

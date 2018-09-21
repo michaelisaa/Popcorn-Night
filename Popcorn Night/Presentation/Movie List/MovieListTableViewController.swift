@@ -87,11 +87,17 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - Datasource
     
     func fetchPopularMovies() {
-        APICLient.listRecentMovies(page: pageNumber, success: { (movieAPIResponse) in
-            self.updateMovieList(movieAPIresponse: movieAPIResponse)
-        }) { (error) in
-            self.emptyStateView.isHidden = false
-            self.emptyStateView.configure(state: .Error)
+        if movies.count == 0, let moviesFromStore = MovieStore.shared.loadMoviesFromStore() {
+            self.movies = moviesFromStore
+            self.canPage = true
+            self.pageNumber = 2
+        } else {
+            APICLient.listRecentMovies(page: pageNumber, success: { (movieAPIResponse) in
+                self.updateMovieList(movieAPIresponse: movieAPIResponse)
+            }) { (error) in
+                self.emptyStateView.isHidden = false
+                self.emptyStateView.configure(state: .Error)
+            }
         }
     }
     
@@ -116,9 +122,12 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func updateMovieList(movieAPIresponse: MoviesAPIResponse) {
+        movies += movieAPIresponse.results
+        if pageNumber == 1 {
+            MovieStore.shared.store(movies: movies)
+        }
         pageNumber += 1
         canPage = pageNumber <= movieAPIresponse.totalPages
-        movies += movieAPIresponse.results
         tableView.reloadData()
     }
     
