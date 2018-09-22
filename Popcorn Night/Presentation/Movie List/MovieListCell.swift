@@ -56,7 +56,8 @@ class MovieListCell: UITableViewCell {
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         titleLabel.autoPinEdge(.left, to: .right, of: posterImageView, withOffset: contentPadding)
         titleLabel.autoPinEdge(toSuperviewEdge: .right, withInset: contentPadding)
-        titleLabel.autoPinEdge(.top, to: .top, of: posterImageView)
+        titleLabel.autoPinEdge(toSuperviewEdge: .top, withInset: contentPadding)
+        titleLabel.autoSetDimension(.height, toSize: 20)
     }
     
     func configureReleaseDateLabel() {
@@ -65,6 +66,7 @@ class MovieListCell: UITableViewCell {
         releaseDateLabel.autoPinEdge(.left, to: .left, of: titleLabel)
         releaseDateLabel.autoPinEdge(toSuperviewEdge: .right, withInset: contentPadding)
         releaseDateLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: labelTopPadding)
+        releaseDateLabel.autoSetDimension(.height, toSize: 15)
     }
     
     func configurePopularityLabel() {
@@ -73,6 +75,7 @@ class MovieListCell: UITableViewCell {
         popularityLabel.autoPinEdge(.top, to: .bottom, of: releaseDateLabel, withOffset: labelTopPadding)
         popularityLabel.autoPinEdge(.left, to: .left, of: titleLabel)
         popularityLabel.autoPinEdge(toSuperviewEdge: .right, withInset: contentPadding)
+        popularityLabel.autoSetDimension(.height, toSize: 15)
     }
     
     func configureGenreLabel() {
