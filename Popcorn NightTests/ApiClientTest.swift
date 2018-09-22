@@ -79,6 +79,69 @@ class ApiClientTest: XCTestCase {
         waitForExpectations(timeout: 0.3, handler: nil)
     }
     
+    // MARK: - Genres List
+    
+    func test_getGenreList_callsCorrectEndpoint() {
+        let expectation = self.expectation(description: "check paramaters and path used for listing genres")
+        stub(condition: { (urlRequest) -> Bool in
+            guard let url = urlRequest.url, let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems else { return false}
+            let apiKeyParameter = URLQueryItem(name: "api_key", value: APICLient.apiKey)
+            XCTAssertTrue(queryItems.contains(apiKeyParameter))
+            XCTAssertEqual(url.path, "/3/genre/movie/list")
+            return true
+        }) { (urlRequest) -> OHHTTPStubsResponse in
+            return OHHTTPStubsResponse(jsonObject: self.validGenresRespons(), statusCode: 200, headers: nil)
+        }
+        
+        APICLient.getGenreList( success: { (movieAPIResponse) in
+            expectation.fulfill()
+        }) { (error) in }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    func test_getGenreList_withInvalidJsonObject_callsFailureBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            let invalidResponse = ["key1":"value1"]
+            return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
+        }
+        
+        APICLient.getGenreList(success: { (movieAPIResponse) in
+            
+        }) { (error) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    func test_getGenreList_withSuccesfullResponse_callsSuccessBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            return OHHTTPStubsResponse(jsonObject: self.validGenresRespons(), statusCode: 200, headers: nil)
+        }
+        
+        APICLient.getGenreList( success: { (movieAPIResponse) in
+            expectation.fulfill()
+        }) { (error) in
+            
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
+    func test_getGenreList_withErrorStatusCode_callsFailureBlock() {
+        let expectation = self.expectation(description: "calls failure block when returned json is invalid")
+        stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
+            return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 404, headers: nil)
+        }
+        
+        APICLient.getGenreList(success: { (movieAPIResponse) in
+            
+        }) { (error) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+    
     // MARK: - Search Movies
     
     func test_searchMovies_callsCorrectEndpoint() {
@@ -151,6 +214,17 @@ class ApiClientTest: XCTestCase {
     }
     
     // MARK: - Test Helpers
+    
+    func validGenresRespons() -> Dictionary<String, Any> {
+        return [
+            "genres": [
+                        [
+                        "id": 28,
+                        "name": "Action"
+                        ]
+                    ]
+        ]
+    }
     
     func validJSONRepsonse() -> Dictionary<String, Any> {
         let movieJSON:[String : Any] = [
