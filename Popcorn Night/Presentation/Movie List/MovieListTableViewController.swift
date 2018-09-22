@@ -98,8 +98,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - Datasource
     
     func fetchPopularMovies() {
-        let b = false
-        if movies.count == 0, let moviesFromStore = MovieStore.shared.loadMoviesFromStore(), b {
+        if movies.count == 0, let moviesFromStore = MovieStore.shared.loadMoviesFromStore() {
             self.movies = moviesFromStore
             self.canPage = true
             self.pageNumber = 2

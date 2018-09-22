@@ -139,4 +139,18 @@ class MovieListTableViewControllerTest: XCTestCase {
         let cell = movieListVC.tableView(movieListVC.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
         XCTAssertTrue(cell.classForCoder == MovieListCell.classForCoder())
     }
+    
+    // MARK - addGenresToMovies
+    
+    func test_addGenresToMovies() {
+        let genre = TestHelper.generateGenre()!
+        movieListVC.movieGenres = [genre.genreId: genre]
+        let movie = TestHelper.generateMovie()!
+        XCTAssertTrue(movie.genreIds!.contains(genre.genreId))
+        XCTAssertNil(movie.genres)
+        let updatedMovie = movieListVC.addGenresToMovies(movies: [movie]).first!
+        XCTAssertTrue(updatedMovie.genres!.contains(where: { (movieGenre) -> Bool in
+            return movieGenre.genreId == genre.genreId
+        }))
+    }
 }
