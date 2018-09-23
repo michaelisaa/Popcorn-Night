@@ -31,6 +31,7 @@ class MovieListCellSnapshotTest: FBSnapshotTestCase {
         var movie = TestHelper.generateMovie()!
         movie.genres = TestHelper.generateGenreArray(numberOfItems: 1)
         movieCell.configure(movie: movie)
+        
         FBSnapshotVerifyView(movieCell)
     }
     

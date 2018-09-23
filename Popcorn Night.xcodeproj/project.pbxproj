@@ -27,7 +27,6 @@
 		0F1F3EAD2154451800384B90 /* MovieDetailsCellSnapshotTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EAC2154451800384B90 /* MovieDetailsCellSnapshotTest.swift */; };
 		0F1F3EAF2154471300384B90 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3EAE2154471300384B90 /* TestHelper.swift */; };
 		0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C2A2150231800C61B53 /* AppDelegate.swift */; };
-		0F212C2D2150231800C61B53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C2C2150231800C61B53 /* ViewController.swift */; };
 		0F212C302150231800C61B53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C2E2150231800C61B53 /* Main.storyboard */; };
 		0F212C322150231B00C61B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C312150231B00C61B53 /* Assets.xcassets */; };
 		0F212C352150231B00C61B53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C332150231B00C61B53 /* LaunchScreen.storyboard */; };
@@ -79,7 +78,6 @@
 		0F1F3EAE2154471300384B90 /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		0F212C272150231700C61B53 /* Popcorn Night.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Popcorn Night.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F212C2A2150231800C61B53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0F212C2C2150231800C61B53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0F212C2F2150231800C61B53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0F212C312150231B00C61B53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F212C342150231B00C61B53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 				0FA119522150404D0011D60A /* Models */,
 				0FA1194F2150328D0011D60A /* Networking */,
 				0F212C2A2150231800C61B53 /* AppDelegate.swift */,
-				0F212C2C2150231800C61B53 /* ViewController.swift */,
 				0F212C2E2150231800C61B53 /* Main.storyboard */,
 				0F212C312150231B00C61B53 /* Assets.xcassets */,
 				0F212C332150231B00C61B53 /* LaunchScreen.storyboard */,
@@ -526,7 +523,6 @@
 				0F1F3E9021512A2300384B90 /* MovieListTableViewController.swift in Sources */,
 				0F1C9293215569800095B55B /* MovieStore.swift in Sources */,
 				0F1F3EA72152DAC700384B90 /* MovieInfoViewController.swift in Sources */,
-				0F212C2D2150231800C61B53 /* ViewController.swift in Sources */,
 				0F1F3E9521513EB300384B90 /* LoadingCell.swift in Sources */,
 				0F212C2B2150231800C61B53 /* AppDelegate.swift in Sources */,
 				0F1F3EA92154280200384B90 /* MovieDetailsCell.swift in Sources */,

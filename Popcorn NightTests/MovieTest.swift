@@ -24,6 +24,6 @@ class MovieTest: XCTestCase {
     func test_genresString_withGenres() {
         movie.genres = TestHelper.generateGenreArray(numberOfItems: 2)
         let expectedGenreString = "Action | Adventure"
-        XCTAssertNil(movie.genresString() == expectedGenreString)
+        XCTAssertTrue(movie.genresString() == expectedGenreString)
     }
 }

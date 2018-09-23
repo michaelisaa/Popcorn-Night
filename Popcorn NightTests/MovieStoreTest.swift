@@ -24,7 +24,7 @@ class MovieStoreTest: XCTestCase {
         let expectedMovies = TestHelper.generateMovieArray(numberOfItems: 3)!
         movieStore.store(movies: expectedMovies)
         let movies = movieStore.loadMoviesFromStore()!
-         let result = movies.elementsEqual(expectedMovies) {
+        let result = movies.elementsEqual(expectedMovies) {
                 $0.movieId == $1.movieId && $0.title == $1.title
         }
         XCTAssertTrue(result)
@@ -46,5 +46,4 @@ class MovieStoreTest: XCTestCase {
         }
         XCTAssertTrue(result)
     }
-    
 }
