@@ -65,7 +65,7 @@ class MovieDetailsCell: UITableViewCell {
         linkTextView.autoPinEdge(toSuperviewEdge: .left, withInset: contentPadding)
         linkTextView.autoPinEdge(toSuperviewEdge: .right, withInset: contentPadding)
         linkTextView.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: contentPadding)
-        linkTextView.autoSetDimension(.height, toSize: 40)
+        linkTextView.autoSetDimension(.height, toSize: 50)
         linkTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         linkTextView.isEditable = false
         linkTextView.dataDetectorTypes = .link

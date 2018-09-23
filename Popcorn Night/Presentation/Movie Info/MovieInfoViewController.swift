@@ -38,6 +38,11 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         fetchMovieDetails()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.contentInset = UIEdgeInsetsMake(300, 0, view.safeAreaInsets.bottom, 0)
+    }
+    
     func fetchMovieDetails() {
         if let movie = movie {
             emptyStateView.configure(state: .Loading)
