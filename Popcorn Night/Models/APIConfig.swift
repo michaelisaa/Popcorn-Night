@@ -53,7 +53,7 @@ struct APIConfig: Codable {
     
     enum CodingKeys: String, CodingKey {
         case changeKeys = "change_keys"
-        case imageConfig = "image_config"
+        case imageConfig = "images"
     }
     
     init(from decoder: Decoder) throws {

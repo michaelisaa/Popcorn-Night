@@ -101,6 +101,7 @@ struct Movie: Codable {
         try container.encode(originalLanguage, forKey: .originalLanguage)
         try container.encode(homepage, forKey: .homepage)
         try container.encode(genreIds, forKey: .genreIds)
+        try container.encode(genres, forKey: .genres)
     }
     
     func genresString() -> String? {
