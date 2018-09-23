@@ -47,7 +47,7 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         if let movie = movie {
             emptyStateView.configure(state: .Loading)
             emptyStateView.isHidden = false
-            APICLient.getMovieDetails(movieId: movie.movieId, success: { (movieInfo) in
+            APIClient.getMovieDetails(movieId: movie.movieId, success: { (movieInfo) in
                 self.movie = movieInfo
                 self.emptyStateView.isHidden = true
                 self.configureMovieInfo()
