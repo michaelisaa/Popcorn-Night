@@ -21,7 +21,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     var searchMovies = [Movie]()
     var searchPageNumber = 1
     var searchCanPage = false
-    let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
+    let emptyStateView = EmptyStateView(forAutoLayout: ())
     var timer: Timer?
     let timerLimit = 0.3
     var movieGenres: [Int: Genre]?

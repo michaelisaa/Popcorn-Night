@@ -12,7 +12,7 @@ import UIKit
 @testable import Popcorn_Night
 
 class MovieListEmptyStateViewSnapshotTest: FBSnapshotTestCase {
-    let emptyStateView = MovieListEmptyStateView()
+    let emptyStateView = EmptyStateView()
     
     override func setUp() {
         super.setUp()

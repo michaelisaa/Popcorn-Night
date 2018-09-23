@@ -9,14 +9,14 @@
 import UIKit
 import PureLayout
 
-enum MovieListEmptyStateViewState {
+enum EmptyViewState {
     case Loading
     case InitialSearch
     case EmptySearch
     case Error
 }
 
-class MovieListEmptyStateView: UIView {
+class EmptyStateView: UIView {
     let activityIndicator = UIActivityIndicatorView(forAutoLayout: ())
     let activityIndicatorHeight:CGFloat = 40
     let titleLabel = UILabel(forAutoLayout: ())
@@ -64,7 +64,7 @@ class MovieListEmptyStateView: UIView {
         activityIndicator.isHidden = true
     }
     
-    public func configure(state: MovieListEmptyStateViewState) {
+    public func configure(state: EmptyViewState) {
         switch state {
         case .Loading:
             configureLoadingState()

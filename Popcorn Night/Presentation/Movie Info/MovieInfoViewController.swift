@@ -13,7 +13,7 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let tableView = UITableView(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
-    let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
+    let emptyStateView = EmptyStateView(forAutoLayout: ())
     var movie: Movie?
     let contentInset:CGFloat = 10
     var availableMovieDetails = [MovieDetailsCellType]()
