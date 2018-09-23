@@ -38,6 +38,11 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         fetchMovieDetails()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.contentInset = UIEdgeInsetsMake(300, 0, view.safeAreaInsets.bottom, 0)
+    }
+    
     func fetchMovieDetails() {
         if let movie = movie {
             emptyStateView.configure(state: .Loading)
@@ -91,7 +96,6 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
     }
     
     func configureNavbar() {
@@ -145,5 +149,13 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         guard let movieDetailsCell = cell as? MovieDetailsCell else {return cell}
         movieDetailsCell.configure(movie: movie!, type: availableMovieDetails[indexPath.row])
         return movieDetailsCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if availableMovieDetails[indexPath.row] == .HomePageLink {
+            if let homePageURL = movie?.homepage, let url = URL(string: homePageURL) {
+                UIApplication.shared.open(url)
+            }
+        }
     }
 }

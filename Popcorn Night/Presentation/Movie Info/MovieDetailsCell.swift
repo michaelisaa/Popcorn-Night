@@ -20,7 +20,6 @@ enum MovieDetailsCellType {
 class MovieDetailsCell: UITableViewCell {
     let titleLabel = UILabel(forAutoLayout: ())
     let infoLabel = UILabel(forAutoLayout: ())
-    let linkTextView = UITextView(forAutoLayout: ())
     let contentPadding:CGFloat = 10
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -37,7 +36,6 @@ class MovieDetailsCell: UITableViewCell {
         backgroundColor = UIColor.white.withAlphaComponent(0.75)
         configureTitleLabel()
         configureInfoLabel()
-        configurelinkTextView()
     }
     
     func configureTitleLabel() {
@@ -60,21 +58,8 @@ class MovieDetailsCell: UITableViewCell {
         infoLabel.textColor = .black
     }
     
-    func configurelinkTextView() {
-        contentView.addSubview(linkTextView)
-        linkTextView.autoPinEdge(toSuperviewEdge: .left, withInset: contentPadding)
-        linkTextView.autoPinEdge(toSuperviewEdge: .right, withInset: contentPadding)
-        linkTextView.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: contentPadding)
-        linkTextView.autoSetDimension(.height, toSize: 40)
-        linkTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        linkTextView.isEditable = false
-        linkTextView.dataDetectorTypes = .link
-        linkTextView.textColor = .blue
-        linkTextView.backgroundColor = .clear
-    }
-    
     func configure(movie: Movie, type: MovieDetailsCellType) {
-        linkTextView.isHidden = true
+        infoLabel.textColor = .black
         switch type {
             case .Summary:
                 configureForSummary(movie)
@@ -126,8 +111,17 @@ class MovieDetailsCell: UITableViewCell {
     
     func configureForHomePage(_ movie: Movie) {
         titleLabel.text = "Home Page"
-        infoLabel.text = nil
-        linkTextView.text = movie.homepage
-        linkTextView.isHidden = false
-    }    
+        infoLabel.text = movie.homepage
+        infoLabel.textColor = .blue
+    }
+    
+    
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        
+    }
 }
