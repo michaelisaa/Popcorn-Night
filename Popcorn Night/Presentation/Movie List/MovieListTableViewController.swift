@@ -11,6 +11,7 @@ import PureLayout
 
 class MovieListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate, EmptyViewStateDelegate {
     let tableView = UITableView()
+    let refreshController = UIRefreshControl()
     let cellIdentifier = "movieCellIdentifier"
     let loadingCellIdentifier = "loadingCellIdentifier"
     var movies = [Movie]()
@@ -25,6 +26,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     var timer: Timer?
     let timerLimit = 0.3
     var movieGenres: [Int: Genre]?
+    var refreshMovies = false
     
     // MARK: - Lifecycle
     
@@ -121,6 +123,19 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         view.addSubview(tableView)
         tableView.autoPinEdgesToSuperviewEdges()
         tableView.tableFooterView = UIView()
+        configureRefreshControl()
+    }
+    
+    func configureRefreshControl() {
+        refreshController.tintColor = .blue
+        refreshController.addTarget(self, action: #selector(refreshPopularMovies), for: .valueChanged)
+        tableView.refreshControl = refreshController
+    }
+    
+    @objc func refreshPopularMovies() {
+        refreshMovies = true
+        pageNumber = 1
+        fetchPopularMovies()
     }
     
     // MARK: - Datasource
@@ -187,7 +202,13 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func updateMovieList(movieAPIresponse: MoviesAPIResponse) {
         let newMovies = addGenresToMovies(movies: movieAPIresponse.results)
-        movies += newMovies
+        if refreshMovies {
+            movies = newMovies
+            refreshMovies = false
+            refreshController.endRefreshing()
+        } else {
+            movies += newMovies
+        }
         if pageNumber == 1 {
             MovieStore.shared.store(movies: newMovies)
         }
