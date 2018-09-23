@@ -13,11 +13,13 @@ class APICLient {
     typealias MoviesAPISuccess = (_ success:MoviesAPIResponse) -> Void
     typealias MoviesDetailsAPISuccess = (_ success: Movie) -> Void
     typealias GenreListAPISuccess = (_ success: [Genre]) -> Void
+    typealias APIConfigSuccess = (_ success: APIConfig) -> Void
     typealias MoviesAPIFailure = (_ error:Error) -> Void
     
     static let baseURLString = "https://api.themoviedb.org/3/"
     static let apiKey = "796fee77f2c23a16feb57f8b626c2dbf"
     
+    // MARK - Genre List
     
     class public func getGenreList(success: @escaping GenreListAPISuccess, failure: @escaping MoviesAPIFailure) {
         let parameters: Parameters = [
@@ -39,6 +41,8 @@ class APICLient {
         }
     }
     
+    // MARK - Popular Movies
+    
     class public func listRecentMovies(page: Int, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
         let parameters: Parameters = [
             "api_key": apiKey,
@@ -46,6 +50,8 @@ class APICLient {
         ]
         getRequest(requestedURL: generateRequestURL(requestURL: "movie/popular"), parameters: parameters, success: success, failure: failure)
     }
+    
+    // MARK - Search
     
     class public func searchMovies(query: String, page: Int, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
         let parameters: Parameters = [
@@ -75,6 +81,30 @@ class APICLient {
             }
         }
     }
+    
+    // MARK - API Config
+    
+    class public func getAPIConfig(success: @escaping APIConfigSuccess, failure: @escaping MoviesAPIFailure) {
+        let parameters: Parameters = [
+            "api_key": apiKey,
+            ]
+        let urlString = generateRequestURL(requestURL: "configuration")
+        Alamofire.request(urlString, parameters: parameters).validate().responseData { response in
+            switch response.result {
+            case .success:
+                do {
+                    let config = try JSONDecoder().decode(APIConfig.self, from: response.data!)
+                    success(config)
+                } catch let jsonError {
+                    failure(jsonError)
+                }
+            case .failure(let error):
+                failure(error)
+            }
+        }
+    }
+    
+    // MARK - Helpers
     
     class func getRequest(requestedURL: String, parameters: Parameters, success: @escaping MoviesAPISuccess, failure: @escaping MoviesAPIFailure) {
         Alamofire.request(requestedURL, parameters: parameters).validate().responseData { response in

@@ -123,7 +123,9 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func urlForMoviePoster() -> URL? {
         guard let backdropPath = movie?.backdropPath else { return nil }
-        let urlString = "https://image.tmdb.org/t/p/w780" + backdropPath
+        guard let imageConfig = MovieStore.shared.loadConfigFromStore()?.imageConfig else {return nil}
+        guard let backdropSize = imageConfig.movieBackdropSize() else {return nil}
+        let urlString = "https://image.tmdb.org/t/p/\(backdropSize)" + backdropPath
         return URL(string: urlString)
     }
     

@@ -113,7 +113,9 @@ class MovieListCell: UITableViewCell {
     
     func urlForMoviePoster(movie: Movie) -> URL? {
         guard let posterPath = movie.posterPath else { return nil }
-        let urlString = "https://image.tmdb.org/t/p/w185" + posterPath
+        guard let imageConfig = MovieStore.shared.loadConfigFromStore()?.imageConfig else {return nil}
+        guard let posterSize = imageConfig.moviePosterSize() else {return nil}
+        let urlString = "https://image.tmdb.org/t/p/\(posterSize)" + posterPath
         return URL(string: urlString)
     }
 }

@@ -12,17 +12,25 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         updateConfiguration()
+        updateGenreList()
         let rootViewController = UINavigationController(rootViewController: MovieListTableViewController())
         window?.rootViewController = rootViewController
         return true
     }
     
     func updateConfiguration() {
+        APICLient.getAPIConfig(success: { (config) in
+            MovieStore.shared.store(config: config)
+        }) { (_) in
+            
+        }
+    }
+    
+    func updateGenreList() {
         APICLient.getGenreList(success: { (genres) in
             MovieStore.shared.store(genres: genres)
         }) { (_) in

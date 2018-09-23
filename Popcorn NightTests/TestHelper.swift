@@ -49,6 +49,18 @@ class TestHelper  {
         }
     }
     
+    // MARK: - Config
+    
+    class func generateConfig() -> APIConfig? {
+        let data = loadDataFromFile(fileName: "Config")
+        do {
+            let config = try JSONDecoder().decode(APIConfig.self, from: data)
+            return config
+        } catch {
+            return nil
+        }
+    }
+    
     // MARK: - Loading Files
     
     class func pathForFile(fileName: String, type: String) -> String? {
