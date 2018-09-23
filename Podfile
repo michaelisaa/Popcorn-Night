@@ -16,9 +16,4 @@ target 'Popcorn Night' do
     pod 'iOSSnapshotTestCase', '~> 4.0.0'
   end
 
-  target 'Popcorn NightUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end

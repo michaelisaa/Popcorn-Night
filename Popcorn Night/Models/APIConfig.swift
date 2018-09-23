@@ -64,8 +64,6 @@ struct APIImageConfig: Codable {
             }
             return nil
         }
-    
-    
 }
 
 struct APIConfig: Codable {
