@@ -56,8 +56,8 @@ class MovieStoreTest: XCTestCase {
     
     func test_storingConfig() {
         let expectedConfig = TestHelper.generateConfig()!
-        XCTAssertNil(movieStore.loadConfigFromStore())
         movieStore.store(config: expectedConfig)
-        XCTAssertNotNil(movieStore.loadConfigFromStore())
+        let config = movieStore.loadConfigFromStore()!
+        XCTAssertTrue(config.changeKeys == expectedConfig.changeKeys)
     }
 }
