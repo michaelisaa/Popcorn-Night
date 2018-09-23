@@ -8,7 +8,7 @@
 
 import Alamofire
 
-class APICLient {
+class APIClient {
     
     typealias MoviesAPISuccess = (_ success:MoviesAPIResponse) -> Void
     typealias MoviesDetailsAPISuccess = (_ success: Movie) -> Void

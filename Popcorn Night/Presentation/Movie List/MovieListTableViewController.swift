@@ -46,7 +46,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func getConfigIfNeeded() {
         if MovieStore.shared.loadConfigFromStore() == nil {
-            APICLient.getAPIConfig(success: { (config) in
+            APIClient.getAPIConfig(success: { (config) in
                 MovieStore.shared.store(config: config)
                 self.tableView.reloadData()
             }) { (_) in
@@ -56,7 +56,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func getGenresIfNeeded() {
         if MovieStore.shared.loadGenresFromStore() == nil {
-            APICLient.getGenreList(success: { (genres) in
+            APIClient.getGenreList(success: { (genres) in
                 MovieStore.shared.store(genres: genres)
                 self.configureMovieGenres()
                 self.tableView.reloadData()
@@ -148,7 +148,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
             self.emptyStateView.isHidden = true
             self.tableView.reloadData()
         } else {
-            APICLient.listRecentMovies(page: pageNumber, success: { (movieAPIResponse) in
+            APIClient.listRecentMovies(page: pageNumber, success: { (movieAPIResponse) in
                 self.emptyStateView.isHidden = true
                 self.updateMovieList(movieAPIresponse: movieAPIResponse)
             }) { (error) in
@@ -169,7 +169,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
                 self.emptyStateView.configure(state: .Loading)
             }
             currentSearchQuery = searchQuery
-            APICLient.searchMovies(query: searchQuery, page: searchPageNumber, success: { (movieAPIResponse) in
+            APIClient.searchMovies(query: searchQuery, page: searchPageNumber, success: { (movieAPIResponse) in
                 self.updateSearchList(movieAPIresponse: movieAPIResponse)
             }) { (_) in
                 self.emptyStateView.isHidden = false

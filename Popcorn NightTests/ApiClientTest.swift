@@ -21,7 +21,7 @@ class ApiClientTest: XCTestCase {
         stub(condition: { (urlRequest) -> Bool in
             guard let url = urlRequest.url, let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems else { return false}
             let pageParameter = URLQueryItem(name: "page", value: String(page))
-            let apiKeyParameter = URLQueryItem(name: "api_key", value: APICLient.apiKey)
+            let apiKeyParameter = URLQueryItem(name: "api_key", value: APIClient.apiKey)
             XCTAssertTrue(queryItems.contains(pageParameter))
             XCTAssertTrue(queryItems.contains(apiKeyParameter))
             XCTAssertEqual(url.path, "/3/movie/popular")
@@ -30,7 +30,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 200, headers: nil)
         }
         
-        APICLient.listRecentMovies(page: page, success: { (movieAPIResponse) in
+        APIClient.listRecentMovies(page: page, success: { (movieAPIResponse) in
             expectation.fulfill()
         }) { (error) in }
         waitForExpectations(timeout: 0.3, handler: nil)
@@ -43,7 +43,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
         }
         
-        APICLient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
+        APIClient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
             
         }) { (error) in
             expectation.fulfill()
@@ -57,7 +57,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 200, headers: nil)
         }
         
-        APICLient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
+        APIClient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
             expectation.fulfill()
         }) { (error) in
             
@@ -71,7 +71,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 404, headers: nil)
         }
         
-        APICLient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
+        APIClient.listRecentMovies(page: 1, success: { (movieAPIResponse) in
             
         }) { (error) in
             expectation.fulfill()
@@ -85,7 +85,7 @@ class ApiClientTest: XCTestCase {
         let expectation = self.expectation(description: "check paramaters and path used for listing genres")
         stub(condition: { (urlRequest) -> Bool in
             guard let url = urlRequest.url, let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems else { return false}
-            let apiKeyParameter = URLQueryItem(name: "api_key", value: APICLient.apiKey)
+            let apiKeyParameter = URLQueryItem(name: "api_key", value: APIClient.apiKey)
             XCTAssertTrue(queryItems.contains(apiKeyParameter))
             XCTAssertEqual(url.path, "/3/genre/movie/list")
             return true
@@ -93,7 +93,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validGenresRespons(), statusCode: 200, headers: nil)
         }
         
-        APICLient.getGenreList( success: { (movieAPIResponse) in
+        APIClient.getGenreList( success: { (movieAPIResponse) in
             expectation.fulfill()
         }) { (error) in }
         waitForExpectations(timeout: 0.3, handler: nil)
@@ -106,7 +106,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
         }
         
-        APICLient.getGenreList(success: { (movieAPIResponse) in
+        APIClient.getGenreList(success: { (movieAPIResponse) in
             
         }) { (error) in
             expectation.fulfill()
@@ -120,7 +120,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validGenresRespons(), statusCode: 200, headers: nil)
         }
         
-        APICLient.getGenreList( success: { (movieAPIResponse) in
+        APIClient.getGenreList( success: { (movieAPIResponse) in
             expectation.fulfill()
         }) { (error) in
             
@@ -134,7 +134,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 404, headers: nil)
         }
         
-        APICLient.getGenreList(success: { (movieAPIResponse) in
+        APIClient.getGenreList(success: { (movieAPIResponse) in
             
         }) { (error) in
             expectation.fulfill()
@@ -153,7 +153,7 @@ class ApiClientTest: XCTestCase {
             guard let url = urlRequest.url, let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems else { return false}
             let pageParameter = URLQueryItem(name: "page", value: String(page))
             let queryParameter = URLQueryItem(name: "query", value: query)
-            let apiKeyParameter = URLQueryItem(name: "api_key", value: APICLient.apiKey)
+            let apiKeyParameter = URLQueryItem(name: "api_key", value: APIClient.apiKey)
             XCTAssertTrue(queryItems.contains(pageParameter))
             XCTAssertTrue(queryItems.contains(queryParameter))
             XCTAssertTrue(queryItems.contains(apiKeyParameter))
@@ -164,7 +164,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
         }
         
-        APICLient.searchMovies(query: query, page: page, success: { (movieAPIResponse) in}) { (error) in
+        APIClient.searchMovies(query: query, page: page, success: { (movieAPIResponse) in}) { (error) in
             expectation.fulfill()
         }
         waitForExpectations(timeout: 0.3, handler: nil)
@@ -177,7 +177,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
         }
         
-        APICLient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
+        APIClient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
             
         }) { (error) in
             expectation.fulfill()
@@ -191,7 +191,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 200, headers: nil)
         }
         
-        APICLient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
+        APIClient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
             expectation.fulfill()
         }) { (error) in
             
@@ -205,7 +205,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validJSONRepsonse(), statusCode: 404, headers: nil)
         }
         
-        APICLient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
+        APIClient.searchMovies(query: "search", page: 1, success: { (movieAPIResponse) in
             
         }) { (error) in
             expectation.fulfill()
@@ -219,7 +219,7 @@ class ApiClientTest: XCTestCase {
         let expectation = self.expectation(description: "check paramaters and path used for getting api config")
         stub(condition: { (urlRequest) -> Bool in
             guard let url = urlRequest.url, let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems else { return false}
-            let apiKeyParameter = URLQueryItem(name: "api_key", value: APICLient.apiKey)
+            let apiKeyParameter = URLQueryItem(name: "api_key", value: APIClient.apiKey)
             XCTAssertTrue(queryItems.contains(apiKeyParameter))
             XCTAssertEqual(url.path, "/3/configuration")
             return true
@@ -227,7 +227,7 @@ class ApiClientTest: XCTestCase {
             let invalidResponse = ["key1":"value1"]
             return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
         }
-        APICLient.getAPIConfig(success: { (config) in
+        APIClient.getAPIConfig(success: { (config) in
             
         }) { (_) in
             expectation.fulfill()
@@ -242,7 +242,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: invalidResponse, statusCode: 200, headers: nil)
         }
         
-        APICLient.getAPIConfig(success: { (config) in
+        APIClient.getAPIConfig(success: { (config) in
             
         }) { (_) in
             expectation.fulfill()
@@ -255,7 +255,7 @@ class ApiClientTest: XCTestCase {
         stub(condition: isHost("api.themoviedb.org")) { (urlRequest) -> OHHTTPStubsResponse in
             return OHHTTPStubsResponse(jsonObject: self.validConfigRespons(), statusCode: 200, headers: nil)
         }
-        APICLient.getAPIConfig(success: { (config) in
+        APIClient.getAPIConfig(success: { (config) in
             expectation.fulfill()
         }) { (_) in
             
@@ -269,7 +269,7 @@ class ApiClientTest: XCTestCase {
             return OHHTTPStubsResponse(jsonObject: self.validConfigRespons(), statusCode: 404, headers: nil)
         }
         
-        APICLient.getAPIConfig(success: { (config) in
+        APIClient.getAPIConfig(success: { (config) in
         }) { (_) in
             expectation.fulfill()
         }
