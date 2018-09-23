@@ -10,7 +10,6 @@ import UIKit
 import PureLayout
 
 class MovieListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate {
-    
     let tableView = UITableView()
     let cellIdentifier = "movieCellIdentifier"
     let loadingCellIdentifier = "loadingCellIdentifier"
@@ -31,13 +30,37 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureMovieGenres()
+        getConfigIfNeeded()
+        getGenresIfNeeded()
         view.backgroundColor = .white
         configureNavbar()
         configureTableView()
         configureSearchController()
         configureEmptyStateView()
         fetchPopularMovies()
+    }
+    
+    func getConfigIfNeeded() {
+        if MovieStore.shared.loadConfigFromStore() == nil {
+            APICLient.getAPIConfig(success: { (config) in
+                MovieStore.shared.store(config: config)
+                self.tableView.reloadData()
+            }) { (_) in
+            }
+        }
+    }
+    
+    func getGenresIfNeeded() {
+        if MovieStore.shared.loadGenresFromStore() == nil {
+            APICLient.getGenreList(success: { (genres) in
+                MovieStore.shared.store(genres: genres)
+                self.configureMovieGenres()
+                self.tableView.reloadData()
+            }) { (_) in
+            }
+        } else {
+            configureMovieGenres()
+        }
     }
     
     func configureMovieGenres() {
@@ -99,7 +122,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func fetchPopularMovies() {
         if movies.count == 0, let moviesFromStore = MovieStore.shared.loadMoviesFromStore() {
-            self.movies = moviesFromStore
+            self.movies = self.addGenresToMovies(movies: moviesFromStore)
             self.canPage = true
             self.pageNumber = 2
         } else {
