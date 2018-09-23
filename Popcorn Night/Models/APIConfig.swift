@@ -24,8 +24,7 @@ struct APIImageConfig: Codable {
             case profileSizes = "profile_sizes"
             case stillSizes = "still_sizes"
         }
-        
-        
+    
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             secureBaseUrl = try? container.decode(String.self, forKey: .secureBaseUrl)
@@ -45,6 +44,28 @@ struct APIImageConfig: Codable {
             try container.encode(profileSizes, forKey: .profileSizes)
             try container.encode(stillSizes, forKey: .stillSizes)
         }
+    
+        func movieBackdropSize() -> String? {
+            guard let backdropSizes = backdropSizes else {return nil}
+            if backdropSizes.contains("w780") {
+                return "w780"
+            } else if backdropSizes.contains("w300") {
+                return "w300"
+            }
+            return nil
+        }
+    
+        func moviePosterSize() -> String? {
+            guard let posterSizes = posterSizes else {return nil}
+            if posterSizes.contains("w185") {
+                return "w185"
+            } else if posterSizes.contains("w154") {
+                return "w154"
+            }
+            return nil
+        }
+    
+    
 }
 
 struct APIConfig: Codable {

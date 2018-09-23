@@ -24,12 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func updateConfiguration() {
         APICLient.getAPIConfig(success: { (config) in
-            
+            MovieStore.shared.store(config: config)
         }) { (_) in
             
         }
-        
-        
     }
     
     func updateGenreList() {
