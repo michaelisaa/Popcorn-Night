@@ -262,7 +262,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func updateSearchResults(for searchController: UISearchController) {
         timer?.invalidate()
-        if let searchQuery = searchController.searchBar.text, searchQuery.count > 0 {
+        if let searchQuery = searchController.searchBar.text, searchQuery.count > 0, currentSearchQuery != searchQuery {
              timer = Timer.scheduledTimer(timeInterval: timerLimit, target: self, selector: #selector(fetchMovieSearchResults), userInfo: nil, repeats: false)
             emptyStateView.isHidden = false
             emptyStateView.configure(state: .Loading)
