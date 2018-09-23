@@ -30,13 +30,15 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getConfigIfNeeded()
         getGenresIfNeeded()
+        getConfigIfNeeded()
         view.backgroundColor = .white
         configureNavbar()
         configureTableView()
         configureSearchController()
         configureEmptyStateView()
+        self.emptyStateView.isHidden = false
+        self.emptyStateView.configure(state: .Loading)
         fetchPopularMovies()
     }
     
@@ -56,7 +58,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
                 MovieStore.shared.store(genres: genres)
                 self.configureMovieGenres()
                 self.tableView.reloadData()
-            }) { (_) in
+            }) { (_) in 
             }
         } else {
             configureMovieGenres()
@@ -69,6 +71,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
             for genre in genres {
                 self.movieGenres![genre.genreId] = genre
             }
+            self.movies = self.addGenresToMovies(movies: self.movies)
         }
     }
     
@@ -116,6 +119,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         tableView.configureForAutoLayout()
         view.addSubview(tableView)
         tableView.autoPinEdgesToSuperviewEdges()
+        tableView.tableFooterView = UIView()
     }
     
     // MARK: - Datasource
@@ -125,12 +129,16 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
             self.movies = self.addGenresToMovies(movies: moviesFromStore)
             self.canPage = true
             self.pageNumber = 2
+            self.emptyStateView.isHidden = true
         } else {
             APICLient.listRecentMovies(page: pageNumber, success: { (movieAPIResponse) in
+                self.emptyStateView.isHidden = true
                 self.updateMovieList(movieAPIresponse: movieAPIResponse)
             }) { (error) in
-                self.emptyStateView.isHidden = false
-                self.emptyStateView.configure(state: .Error)
+                if self.movies.count == 0 {
+                    self.emptyStateView.isHidden = false
+                    self.emptyStateView.configure(state: .Error)
+                }
             }
         }
     }
