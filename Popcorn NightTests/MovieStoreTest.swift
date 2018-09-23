@@ -46,4 +46,18 @@ class MovieStoreTest: XCTestCase {
         }
         XCTAssertTrue(result)
     }
+    
+    // Mark: - Config
+    
+    func test_configFilePath() {
+        let filePath = movieStore.configFilePath.split(separator: "/").last!
+        XCTAssertTrue(filePath == "Config")
+    }
+    
+    func test_storingConfig() {
+        let expectedConfig = TestHelper.generateConfig()!
+        XCTAssertNil(movieStore.loadConfigFromStore())
+        movieStore.store(config: expectedConfig)
+        XCTAssertNotNil(movieStore.loadConfigFromStore())
+    }
 }

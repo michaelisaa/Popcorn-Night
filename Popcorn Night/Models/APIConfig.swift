@@ -28,12 +28,12 @@ struct APIImageConfig: Codable {
         
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            secureBaseUrl = try container.decode(String.self, forKey: .secureBaseUrl)
-            backdropSizes = try container.decode([String].self, forKey: .backdropSizes)
-            logoSizes = try container.decode([String].self, forKey: .logoSizes)
-            posterSizes = try container.decode([String].self, forKey: .posterSizes)
-            profileSizes = try container.decode([String].self, forKey: .profileSizes)
-            stillSizes = try container.decode([String].self, forKey: .stillSizes)
+            secureBaseUrl = try? container.decode(String.self, forKey: .secureBaseUrl)
+            backdropSizes = try? container.decode([String].self, forKey: .backdropSizes)
+            logoSizes = try? container.decode([String].self, forKey: .logoSizes)
+            posterSizes = try? container.decode([String].self, forKey: .posterSizes)
+            profileSizes = try? container.decode([String].self, forKey: .profileSizes)
+            stillSizes = try? container.decode([String].self, forKey: .stillSizes)
         }
         
         func encode(to encoder: Encoder) throws {

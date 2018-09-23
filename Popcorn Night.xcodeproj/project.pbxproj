@@ -10,6 +10,7 @@
 		0F1458A32156F9DC00AAB721 /* Genres.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F1458A22156F9DC00AAB721 /* Genres.json */; };
 		0F1458A52157069800AAB721 /* MovieTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1458A42157069800AAB721 /* MovieTest.swift */; };
 		0F1458A7215817B800AAB721 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1458A6215817B800AAB721 /* APIConfig.swift */; };
+		0F1458AB2158243E00AAB721 /* Config.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F1458AA2158243E00AAB721 /* Config.json */; };
 		0F1C9293215569800095B55B /* MovieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1C9292215569800095B55B /* MovieStore.swift */; };
 		0F1C929621556F4C0095B55B /* MovieStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1C929521556F4C0095B55B /* MovieStoreTest.swift */; };
 		0F1C9298215577260095B55B /* Movies.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F1C9297215577260095B55B /* Movies.json */; };
@@ -62,6 +63,7 @@
 		0F1458A22156F9DC00AAB721 /* Genres.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Genres.json; sourceTree = "<group>"; };
 		0F1458A42157069800AAB721 /* MovieTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTest.swift; sourceTree = "<group>"; };
 		0F1458A6215817B800AAB721 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
+		0F1458AA2158243E00AAB721 /* Config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Config.json; sourceTree = "<group>"; };
 		0F1C9292215569800095B55B /* MovieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieStore.swift; sourceTree = "<group>"; };
 		0F1C929521556F4C0095B55B /* MovieStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieStoreTest.swift; sourceTree = "<group>"; };
 		0F1C9297215577260095B55B /* Movies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Movies.json; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				0F1458A42157069800AAB721 /* MovieTest.swift */,
 				0F1F3E9A21515CC600384B90 /* Snapshot Tests */,
 				0F1F3EAE2154471300384B90 /* TestHelper.swift */,
+				0F1458AA2158243E00AAB721 /* Config.json */,
 			);
 			path = "Popcorn NightTests";
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F1C9298215577260095B55B /* Movies.json in Resources */,
+				0F1458AB2158243E00AAB721 /* Config.json in Resources */,
 				0F1458A32156F9DC00AAB721 /* Genres.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
