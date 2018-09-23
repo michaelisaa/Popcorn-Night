@@ -9,25 +9,32 @@
 import UIKit
 import PureLayout
 
-enum MovieListEmptyStateViewState {
+enum EmptyViewState {
     case Loading
     case InitialSearch
     case EmptySearch
     case Error
 }
 
-class MovieListEmptyStateView: UIView {
+protocol EmptyViewStateDelegate {
+    func retryAction()
+}
+
+class EmptyStateView: UIView {
     let activityIndicator = UIActivityIndicatorView(forAutoLayout: ())
     let activityIndicatorHeight:CGFloat = 40
     let titleLabel = UILabel(forAutoLayout: ())
+    let retryButton = UIButton(forAutoLayout: ())
     let messageLabel = UILabel(forAutoLayout: ())
     let contentInset:CGFloat = 20
+    var delegate: EmptyViewStateDelegate?
     
     override init(frame : CGRect) {
         super.init(frame : frame)
         backgroundColor = .white
         configureTitleLabel()
         configureMessageLabel()
+        configureRetryButton()
         configureActivityIndicator()
     }
     
@@ -36,7 +43,7 @@ class MovieListEmptyStateView: UIView {
     }
     
     // MARK: - Configuration
-    
+
     func configureTitleLabel() {
         addSubview(titleLabel)
         titleLabel.textAlignment = .center
@@ -56,6 +63,27 @@ class MovieListEmptyStateView: UIView {
         messageLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 10)
     }
     
+    func configureRetryButton() {
+        addSubview(retryButton)
+        retryButton.addTarget(self, action: #selector(didTouchRetryButton), for: .touchUpInside)
+        retryButton.setTitle("Retry", for: .normal)
+        retryButton.autoPinEdge(toSuperviewEdge: .left, withInset: 120)
+        retryButton.autoPinEdge(toSuperviewEdge: .right, withInset: 120)
+        retryButton.autoSetDimension(.height, toSize: 40)
+        retryButton.setTitleColor(.blue, for: .normal)
+        retryButton.autoPinEdge(.top, to: .bottom, of: messageLabel, withOffset: 10)
+        retryButton.layer.cornerRadius = 20
+        retryButton.clipsToBounds = true
+        retryButton.layer.borderWidth = 1
+        retryButton.layer.borderColor = UIColor.blue.cgColor
+    }
+    
+    @objc func didTouchRetryButton() {
+        if let delegate = delegate {
+            delegate.retryAction()
+        }
+    }
+    
     func configureActivityIndicator() {
         addSubview(activityIndicator)
         activityIndicator.autoCenterInSuperview()
@@ -64,7 +92,7 @@ class MovieListEmptyStateView: UIView {
         activityIndicator.isHidden = true
     }
     
-    public func configure(state: MovieListEmptyStateViewState) {
+    public func configure(state: EmptyViewState) {
         switch state {
         case .Loading:
             configureLoadingState()
@@ -80,6 +108,7 @@ class MovieListEmptyStateView: UIView {
     func configureLoadingState() {
         titleLabel.isHidden = true
         messageLabel.isHidden = true
+        retryButton.isHidden = true
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
@@ -87,6 +116,7 @@ class MovieListEmptyStateView: UIView {
     func configureInitialSearchstate() {
         titleLabel.isHidden = false
         messageLabel.isHidden = false
+        retryButton.isHidden = true
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
@@ -97,6 +127,7 @@ class MovieListEmptyStateView: UIView {
     func configureErrorstate() {
         titleLabel.isHidden = false
         messageLabel.isHidden = false
+        retryButton.isHidden = false
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
@@ -107,6 +138,7 @@ class MovieListEmptyStateView: UIView {
     func configureEmptySearchState() {
         titleLabel.isHidden = false
         messageLabel.isHidden = false
+        retryButton.isHidden = true
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         

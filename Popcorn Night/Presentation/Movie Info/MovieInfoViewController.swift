@@ -9,11 +9,11 @@
 import UIKit
 import PureLayout
 
-class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EmptyViewStateDelegate {
     
     let tableView = UITableView(forAutoLayout: ())
     let posterImageView = UIImageView(forAutoLayout: ())
-    let emptyStateView = MovieListEmptyStateView(forAutoLayout: ())
+    let emptyStateView = EmptyStateView(forAutoLayout: ())
     var movie: Movie?
     let contentInset:CGFloat = 10
     var availableMovieDetails = [MovieDetailsCellType]()
@@ -84,6 +84,7 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         view.addSubview(emptyStateView)
         emptyStateView.autoPinEdgesToSuperviewEdges()
         emptyStateView.isHidden = true
+        emptyStateView.delegate = self
         view.bringSubview(toFront: emptyStateView)
     }
     
@@ -157,5 +158,12 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
                 UIApplication.shared.open(url)
             }
         }
+    }
+    
+    // MARK: - EmptyViewStateDelegate
+    
+    func retryAction() {
+        emptyStateView.configure(state: .Loading)
+        fetchMovieDetails()
     }
 }
