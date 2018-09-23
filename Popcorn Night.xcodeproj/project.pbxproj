@@ -14,7 +14,6 @@
 		0F1C9293215569800095B55B /* MovieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1C9292215569800095B55B /* MovieStore.swift */; };
 		0F1C929621556F4C0095B55B /* MovieStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1C929521556F4C0095B55B /* MovieStoreTest.swift */; };
 		0F1C9298215577260095B55B /* Movies.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F1C9297215577260095B55B /* Movies.json */; };
-		0F1C929921557D370095B55B /* Movies.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F1C9297215577260095B55B /* Movies.json */; };
 		0F1F3E9021512A2300384B90 /* MovieListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E8F21512A2300384B90 /* MovieListTableViewController.swift */; };
 		0F1F3E9321512DF200384B90 /* MovieListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E9221512DF200384B90 /* MovieListCell.swift */; };
 		0F1F3E9521513EB300384B90 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F3E9421513EB300384B90 /* LoadingCell.swift */; };
@@ -33,24 +32,15 @@
 		0F212C322150231B00C61B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C312150231B00C61B53 /* Assets.xcassets */; };
 		0F212C352150231B00C61B53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F212C332150231B00C61B53 /* LaunchScreen.storyboard */; };
 		0F212C402150231B00C61B53 /* ApiClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C3F2150231B00C61B53 /* ApiClientTest.swift */; };
-		0F212C4B2150231B00C61B53 /* Popcorn_NightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F212C4A2150231B00C61B53 /* Popcorn_NightUITests.swift */; };
 		0FA119512150329D0011D60A /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA119502150329D0011D60A /* ApiClient.swift */; };
 		0FA119542150405D0011D60A /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA119532150405D0011D60A /* Movie.swift */; };
 		0FA1195621504C020011D60A /* MoviesAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA1195521504C020011D60A /* MoviesAPIResponse.swift */; };
-		6DCE8BE8C891358FE92533BF /* Pods_Popcorn_NightUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3075FE5F1BD64F1F5E539ED /* Pods_Popcorn_NightUITests.framework */; };
 		D66B479DDDCE74FA599B8FA4 /* Pods_Popcorn_NightTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C5ECB33BF9C3CA8FD0228 /* Pods_Popcorn_NightTests.framework */; };
 		EFB1EE0201FDCF93B8A3561F /* Pods_Popcorn_Night.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B36197B983BCFD40AF2A605 /* Pods_Popcorn_Night.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		0F212C3C2150231B00C61B53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0F212C1F2150231700C61B53 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0F212C262150231700C61B53;
-			remoteInfo = "Popcorn Night";
-		};
-		0F212C472150231B00C61B53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0F212C1F2150231700C61B53 /* Project object */;
 			proxyType = 1;
@@ -89,9 +79,6 @@
 		0F212C3B2150231B00C61B53 /* Popcorn NightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn NightTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F212C3F2150231B00C61B53 /* ApiClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientTest.swift; sourceTree = "<group>"; };
 		0F212C412150231B00C61B53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0F212C462150231B00C61B53 /* Popcorn NightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Popcorn NightUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F212C4A2150231B00C61B53 /* Popcorn_NightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popcorn_NightUITests.swift; sourceTree = "<group>"; };
-		0F212C4C2150231B00C61B53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FA119502150329D0011D60A /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		0FA119532150405D0011D60A /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		0FA1195521504C020011D60A /* MoviesAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPIResponse.swift; sourceTree = "<group>"; };
@@ -120,14 +107,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D66B479DDDCE74FA599B8FA4 /* Pods_Popcorn_NightTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F212C432150231B00C61B53 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6DCE8BE8C891358FE92533BF /* Pods_Popcorn_NightUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +184,6 @@
 			children = (
 				0F212C292150231800C61B53 /* Popcorn Night */,
 				0F212C3E2150231B00C61B53 /* Popcorn NightTests */,
-				0F212C492150231B00C61B53 /* Popcorn NightUITests */,
 				0F212C282150231700C61B53 /* Products */,
 				3AEAC44CAB989373766A8617 /* Pods */,
 				00FDCA56AA80CDB2146F56AD /* Frameworks */,
@@ -217,7 +195,6 @@
 			children = (
 				0F212C272150231700C61B53 /* Popcorn Night.app */,
 				0F212C3B2150231B00C61B53 /* Popcorn NightTests.xctest */,
-				0F212C462150231B00C61B53 /* Popcorn NightUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -254,15 +231,6 @@
 				0F1458AA2158243E00AAB721 /* Config.json */,
 			);
 			path = "Popcorn NightTests";
-			sourceTree = "<group>";
-		};
-		0F212C492150231B00C61B53 /* Popcorn NightUITests */ = {
-			isa = PBXGroup;
-			children = (
-				0F212C4A2150231B00C61B53 /* Popcorn_NightUITests.swift */,
-				0F212C4C2150231B00C61B53 /* Info.plist */,
-			);
-			path = "Popcorn NightUITests";
 			sourceTree = "<group>";
 		};
 		0FA1194F2150328D0011D60A /* Networking */ = {
@@ -338,25 +306,6 @@
 			productReference = 0F212C3B2150231B00C61B53 /* Popcorn NightTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		0F212C452150231B00C61B53 /* Popcorn NightUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0F212C552150231B00C61B53 /* Build configuration list for PBXNativeTarget "Popcorn NightUITests" */;
-			buildPhases = (
-				5F8CC23CDF39BCD744A82532 /* [CP] Check Pods Manifest.lock */,
-				0F212C422150231B00C61B53 /* Sources */,
-				0F212C432150231B00C61B53 /* Frameworks */,
-				0F212C442150231B00C61B53 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0F212C482150231B00C61B53 /* PBXTargetDependency */,
-			);
-			name = "Popcorn NightUITests";
-			productName = "Popcorn NightUITests";
-			productReference = 0F212C462150231B00C61B53 /* Popcorn NightUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -371,10 +320,6 @@
 						CreatedOnToolsVersion = 9.4.1;
 					};
 					0F212C3A2150231B00C61B53 = {
-						CreatedOnToolsVersion = 9.4.1;
-						TestTargetID = 0F212C262150231700C61B53;
-					};
-					0F212C452150231B00C61B53 = {
 						CreatedOnToolsVersion = 9.4.1;
 						TestTargetID = 0F212C262150231700C61B53;
 					};
@@ -395,7 +340,6 @@
 			targets = (
 				0F212C262150231700C61B53 /* Popcorn Night */,
 				0F212C3A2150231B00C61B53 /* Popcorn NightTests */,
-				0F212C452150231B00C61B53 /* Popcorn NightUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -421,14 +365,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0F212C442150231B00C61B53 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F1C929921557D370095B55B /* Movies.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -444,24 +380,6 @@
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Popcorn NightTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5F8CC23CDF39BCD744A82532 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Popcorn NightUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -567,14 +485,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0F212C422150231B00C61B53 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F212C4B2150231B00C61B53 /* Popcorn_NightUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -582,11 +492,6 @@
 			isa = PBXTargetDependency;
 			target = 0F212C262150231700C61B53 /* Popcorn Night */;
 			targetProxy = 0F212C3C2150231B00C61B53 /* PBXContainerItemProxy */;
-		};
-		0F212C482150231B00C61B53 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0F212C262150231700C61B53 /* Popcorn Night */;
-			targetProxy = 0F212C472150231B00C61B53 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -806,46 +711,6 @@
 			};
 			name = Release;
 		};
-		0F212C562150231B00C61B53 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C48ABE19B1457151126F8B66 /* Pods-Popcorn NightUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "Popcorn NightUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michael.isaakidis.Popcorn-NightUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Popcorn Night";
-			};
-			name = Debug;
-		};
-		0F212C572150231B00C61B53 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 821D0F1D6843EFAF352EABCE /* Pods-Popcorn NightUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "Popcorn NightUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.michael.isaakidis.Popcorn-NightUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Popcorn Night";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -872,15 +737,6 @@
 			buildConfigurations = (
 				0F212C532150231B00C61B53 /* Debug */,
 				0F212C542150231B00C61B53 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0F212C552150231B00C61B53 /* Build configuration list for PBXNativeTarget "Popcorn NightUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0F212C562150231B00C61B53 /* Debug */,
-				0F212C572150231B00C61B53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
