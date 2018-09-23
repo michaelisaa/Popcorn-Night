@@ -92,7 +92,7 @@ class MovieDetailsCell: UITableViewCell {
     func configureForSummary(_ movie: Movie) {
         titleLabel.text = nil
         let seperator = "  ∙  "
-        var labelText = String(movie.releaseDate.split(separator: "-").first!)
+        var labelText = movie.releaseYear()
         if  let runtime = movie.runtime {
             labelText = "\(labelText)\(seperator)\(runtime) min"
         }
@@ -109,11 +109,7 @@ class MovieDetailsCell: UITableViewCell {
     
     func configureForGeneres(_ movie: Movie) {
         titleLabel.text = "Genres"
-        if let genres = movie.genres {
-            infoLabel.text =  genres.map { (genre) -> String in
-                genre.name!
-                }.joined(separator: " | ")
-        }
+        infoLabel.text = movie.genresString()
     }
     
     func configureForOverview(_ movie: Movie) {

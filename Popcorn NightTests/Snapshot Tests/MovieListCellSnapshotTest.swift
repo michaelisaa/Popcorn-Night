@@ -17,12 +17,27 @@ class MovieListCellSnapshotTest: FBSnapshotTestCase {
     
     override func setUp() {
         super.setUp()
-        movieCell.frame = CGRect(x: 0, y: 0, width: 350, height: 100)
+        movieCell.frame = CGRect(x: 0, y: 0, width: 350, height: 150)
         movieCell.backgroundColor = .white
     }
     
-    func test_configureMovie() {
+    func test_configureMovie_withoutGenre() {
         let movie = TestHelper.generateMovie()!
+        movieCell.configure(movie: movie)
+        FBSnapshotVerifyView(movieCell)
+    }
+    
+    func test_configureMovie_withGenre() {
+        var movie = TestHelper.generateMovie()!
+        movie.genres = TestHelper.generateGenreArray(numberOfItems: 1)
+        movieCell.configure(movie: movie)
+        
+        FBSnapshotVerifyView(movieCell)
+    }
+    
+    func test_configureMovie_withManyGenres() {
+        var movie = TestHelper.generateMovie()!
+        movie.genres = TestHelper.generateGenreArray(numberOfItems: 8)
         movieCell.configure(movie: movie)
         FBSnapshotVerifyView(movieCell)
     }

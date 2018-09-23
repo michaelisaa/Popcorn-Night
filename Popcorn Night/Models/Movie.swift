@@ -28,8 +28,6 @@ struct Genre: Codable {
         try container.encode(name, forKey: .name)
         try container.encode(genreId, forKey: .genreId)
     }
-    
-    
 }
 
 struct Movie: Codable {
@@ -46,7 +44,7 @@ struct Movie: Codable {
     let homepage: String?
     let revenue: Int?
     let runtime: Int?
-    let genres: [Genre]?
+    var genres: [Genre]?
     let genreIds: [Int]?
     
     enum CodingKeys: String, CodingKey {
@@ -83,7 +81,7 @@ struct Movie: Codable {
         runtime = try? container.decode(Int.self, forKey: .runtime)
         originalLanguage = try? container.decode(String.self, forKey: .originalLanguage)
         homepage = try? container.decode(String.self, forKey: .homepage)
-        genreIds = try? container.decode([Int].self, forKey: .genres)
+        genreIds = try? container.decode([Int].self, forKey: .genreIds)
         genres = try? container.decode([Genre].self, forKey: .genres)
     }
     
@@ -103,5 +101,18 @@ struct Movie: Codable {
         try container.encode(originalLanguage, forKey: .originalLanguage)
         try container.encode(homepage, forKey: .homepage)
         try container.encode(genreIds, forKey: .genreIds)
+    }
+    
+    func genresString() -> String? {
+        if let genres = genres {
+            return genres.map { (genre) -> String in
+                genre.name!
+                }.joined(separator: " | ")
+        }
+        return nil
+    }
+    
+    func releaseYear() -> String {
+        return String(releaseDate.split(separator: "-").first!)
     }
 }

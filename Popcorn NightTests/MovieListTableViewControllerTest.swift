@@ -139,4 +139,78 @@ class MovieListTableViewControllerTest: XCTestCase {
         let cell = movieListVC.tableView(movieListVC.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
         XCTAssertTrue(cell.classForCoder == MovieListCell.classForCoder())
     }
+    
+    // MARK - addGenresToMovies
+    
+    func test_addGenresToMovies() {
+        let genre = TestHelper.generateGenre()!
+        movieListVC.movieGenres = [genre.genreId: genre]
+        let movie = TestHelper.generateMovie()!
+        XCTAssertTrue(movie.genreIds!.contains(genre.genreId))
+        XCTAssertNil(movie.genres)
+        let updatedMovie = movieListVC.addGenresToMovies(movies: [movie]).first!
+        XCTAssertTrue(updatedMovie.genres!.contains(where: { (movieGenre) -> Bool in
+            return movieGenre.genreId == genre.genreId
+        }))
+    }
+    
+    // MARK - fetchPopularMovies
+    
+    func test_fetchPopularMovies_usesLocalStoreIfAvailable() {
+        let expectedMovies = TestHelper.generateMovieArray(numberOfItems: 3)!
+        MovieStore.shared.store(movies: expectedMovies)
+        XCTAssertTrue(movieListVC.movies.count == 0)
+        movieListVC.fetchPopularMovies()
+        XCTAssertTrue(movieListVC.movies.count == 3)
+        XCTAssertTrue(movieListVC.pageNumber == 2)
+        XCTAssertTrue(movieListVC.canPage)
+        let result = movieListVC.movies.elementsEqual(expectedMovies) {
+            $0.movieId == $1.movieId && $0.title == $1.title
+        }
+        XCTAssertTrue(result)
+    }
+    
+    // MARK: updateMovieList
+    
+    func test_updateMovieList() {
+        let expectedMovies = TestHelper.generateMovieArray(numberOfItems: 3)!
+        let movieResponse = MoviesAPIResponse(page: 2, totalResults: 40, totalPages: 40, results: expectedMovies)
+        XCTAssertTrue(movieListVC.movies.count == 0)
+        XCTAssertTrue(movieListVC.pageNumber == 1)
+        XCTAssertFalse(movieListVC.canPage)
+        movieListVC.updateMovieList(movieAPIresponse: movieResponse)
+        XCTAssertTrue(movieListVC.movies.count == 3)
+        XCTAssertTrue(movieListVC.pageNumber == 2)
+        XCTAssertTrue(movieListVC.canPage)
+        
+        XCTAssertTrue(movieListVC.searchMovies.count == 0)
+        XCTAssertTrue(movieListVC.searchPageNumber == 1)
+        XCTAssertFalse(movieListVC.searchCanPage)
+        let result = movieListVC.movies.elementsEqual(expectedMovies) {
+            $0.movieId == $1.movieId && $0.title == $1.title
+        }
+        XCTAssertTrue(result)
+    }
+    
+    // MARK: updateSearchList
+    
+    func test_updateSearchList() {
+        let expectedMovies = TestHelper.generateMovieArray(numberOfItems: 3)!
+        let movieResponse = MoviesAPIResponse(page: 2, totalResults: 40, totalPages: 40, results: expectedMovies)
+        XCTAssertTrue(movieListVC.searchMovies.count == 0)
+        XCTAssertTrue(movieListVC.searchPageNumber == 1)
+        XCTAssertFalse(movieListVC.searchCanPage)
+        movieListVC.updateSearchList(movieAPIresponse: movieResponse)
+        XCTAssertTrue(movieListVC.searchMovies.count == 3)
+        XCTAssertTrue(movieListVC.searchPageNumber == 2)
+        XCTAssertTrue(movieListVC.searchCanPage)
+        
+        XCTAssertTrue(movieListVC.movies.count == 0)
+        XCTAssertTrue(movieListVC.pageNumber == 1)
+        XCTAssertFalse(movieListVC.canPage)
+        let result = movieListVC.searchMovies.elementsEqual(expectedMovies) {
+            $0.movieId == $1.movieId && $0.title == $1.title
+        }
+        XCTAssertTrue(result)
+    }
 }

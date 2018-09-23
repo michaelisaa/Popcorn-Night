@@ -19,3 +19,10 @@ struct MoviesAPIResponse: Decodable {
         case results = "results"
     }
 }
+
+struct GenreAPIResponse: Decodable {
+    let genres: [Genre]
+    enum CodingKeys: String, CodingKey {
+        case genres
+    }
+}

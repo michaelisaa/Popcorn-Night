@@ -24,11 +24,10 @@ class MovieStoreTest: XCTestCase {
         let expectedMovies = TestHelper.generateMovieArray(numberOfItems: 3)!
         movieStore.store(movies: expectedMovies)
         let movies = movieStore.loadMoviesFromStore()!
-         let result = movies.elementsEqual(expectedMovies) {
+        let result = movies.elementsEqual(expectedMovies) {
                 $0.movieId == $1.movieId && $0.title == $1.title
         }
         XCTAssertTrue(result)
-
     }
     
     // Mark: - Genres
@@ -39,10 +38,12 @@ class MovieStoreTest: XCTestCase {
     }
     
     func test_storingGenres() {
-//        let expectedGenres = []
-//        movieStore.store(movies: expectedMovies)
-//        let movies = movieStore.loadMoviesFromStore()
-//        XCTAssertTrue(expectedMovies == movies)
+        let expectedGenres = TestHelper.generateGenreArray(numberOfItems: 3)!
+        movieStore.store(genres: expectedGenres)
+        let genres = movieStore.loadGenresFromStore()!
+        let result = genres.elementsEqual(expectedGenres) {
+            $0.genreId == $1.genreId && $0.name == $1.name
+        }
+        XCTAssertTrue(result)
     }
-    
 }
