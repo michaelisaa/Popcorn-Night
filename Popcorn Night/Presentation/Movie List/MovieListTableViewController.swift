@@ -9,7 +9,7 @@
 import UIKit
 import PureLayout
 
-class MovieListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate {
+class MovieListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate, EmptyViewStateDelegate {
     let tableView = UITableView()
     let cellIdentifier = "movieCellIdentifier"
     let loadingCellIdentifier = "loadingCellIdentifier"
@@ -91,6 +91,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         view.addSubview(emptyStateView)
         emptyStateView.autoPinEdgesToSuperviewEdges()
         emptyStateView.isHidden = true
+        emptyStateView.delegate = self
         view.bringSubview(toFront: emptyStateView)
     }
     
@@ -130,6 +131,7 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
             self.canPage = true
             self.pageNumber = 2
             self.emptyStateView.isHidden = true
+            self.tableView.reloadData()
         } else {
             APICLient.listRecentMovies(page: pageNumber, success: { (movieAPIResponse) in
                 self.emptyStateView.isHidden = true
@@ -306,5 +308,16 @@ class MovieListTableViewController: UIViewController, UITableViewDelegate, UITab
         currentSearchQuery = nil
         emptyStateView.isHidden = true
         tableView.reloadData()
+    }
+    
+    // MARK: - EmptyViewStateDelegate
+    
+    func retryAction() {
+        emptyStateView.configure(state: .Loading)
+        if let query = currentSearchQuery, query.count > 0 {
+            fetchMovieSearchResults()
+        } else {
+            fetchPopularMovies()
+        }
     }
 }

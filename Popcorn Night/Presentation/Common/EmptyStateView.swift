@@ -16,18 +16,25 @@ enum EmptyViewState {
     case Error
 }
 
+protocol EmptyViewStateDelegate {
+    func retryAction()
+}
+
 class EmptyStateView: UIView {
     let activityIndicator = UIActivityIndicatorView(forAutoLayout: ())
     let activityIndicatorHeight:CGFloat = 40
     let titleLabel = UILabel(forAutoLayout: ())
+    let retryButton = UIButton(forAutoLayout: ())
     let messageLabel = UILabel(forAutoLayout: ())
     let contentInset:CGFloat = 20
+    var delegate: EmptyViewStateDelegate?
     
     override init(frame : CGRect) {
         super.init(frame : frame)
         backgroundColor = .white
         configureTitleLabel()
         configureMessageLabel()
+        configureRetryButton()
         configureActivityIndicator()
     }
     
@@ -36,7 +43,7 @@ class EmptyStateView: UIView {
     }
     
     // MARK: - Configuration
-    
+
     func configureTitleLabel() {
         addSubview(titleLabel)
         titleLabel.textAlignment = .center
@@ -54,6 +61,27 @@ class EmptyStateView: UIView {
         messageLabel.autoPinEdge(toSuperviewEdge: .left, withInset: contentInset)
         messageLabel.autoPinEdge(toSuperviewEdge: .right, withInset: contentInset)
         messageLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 10)
+    }
+    
+    func configureRetryButton() {
+        addSubview(retryButton)
+        retryButton.addTarget(self, action: #selector(didTouchRetryButton), for: .touchUpInside)
+        retryButton.setTitle("Retry", for: .normal)
+        retryButton.autoPinEdge(toSuperviewEdge: .left, withInset: 120)
+        retryButton.autoPinEdge(toSuperviewEdge: .right, withInset: 120)
+        retryButton.autoSetDimension(.height, toSize: 40)
+        retryButton.setTitleColor(.blue, for: .normal)
+        retryButton.autoPinEdge(.top, to: .bottom, of: messageLabel, withOffset: 10)
+        retryButton.layer.cornerRadius = 20
+        retryButton.clipsToBounds = true
+        retryButton.layer.borderWidth = 1
+        retryButton.layer.borderColor = UIColor.blue.cgColor
+    }
+    
+    @objc func didTouchRetryButton() {
+        if let delegate = delegate {
+            delegate.retryAction()
+        }
     }
     
     func configureActivityIndicator() {
