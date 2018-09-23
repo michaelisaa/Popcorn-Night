@@ -108,6 +108,7 @@ class EmptyStateView: UIView {
     func configureLoadingState() {
         titleLabel.isHidden = true
         messageLabel.isHidden = true
+        retryButton.isHidden = true
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
@@ -115,6 +116,7 @@ class EmptyStateView: UIView {
     func configureInitialSearchstate() {
         titleLabel.isHidden = false
         messageLabel.isHidden = false
+        retryButton.isHidden = true
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
@@ -125,6 +127,7 @@ class EmptyStateView: UIView {
     func configureErrorstate() {
         titleLabel.isHidden = false
         messageLabel.isHidden = false
+        retryButton.isHidden = false
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
@@ -135,6 +138,7 @@ class EmptyStateView: UIView {
     func configureEmptySearchState() {
         titleLabel.isHidden = false
         messageLabel.isHidden = false
+        retryButton.isHidden = true
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         

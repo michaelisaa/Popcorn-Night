@@ -114,6 +114,9 @@ struct Movie: Codable {
     }
     
     func releaseYear() -> String {
-        return String(releaseDate.split(separator: "-").first!)
+        if let year = releaseDate.split(separator: "-").first {
+            return String(year)
+        }
+        return releaseDate
     }
 }
