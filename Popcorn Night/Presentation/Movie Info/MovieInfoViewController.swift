@@ -113,7 +113,7 @@ class MovieInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
         view.sendSubview(toBack: posterImageView)
-        let placeholderImage = UIImage(imageLiteralResourceName: "moviePlaceholderIcon")
+        let placeholderImage = UIImage(imageLiteralResourceName: "placeholder")
         if let url = urlForMoviePoster() {
             posterImageView.af_setImage(
                 withURL: url,
